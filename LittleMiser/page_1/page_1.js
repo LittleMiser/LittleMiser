@@ -1,4 +1,13 @@
+var app = new Vue({ 
+    el: '#myheader',
+    data: {
+        name: 'Little Miser'
+    }
+});
+
+
 function switch_button() {
+
     $('.ui.sidebar').sidebar({
         context: 'body',
         dimPage : false,
@@ -14,4 +23,7 @@ function switch_button() {
             $('.ui.sidebar').css("z-index",1);
         }
     }).sidebar('toggle');
+}
+function createWJ() {
+    window.location.href='../createWJ/createWJ.html'
 }

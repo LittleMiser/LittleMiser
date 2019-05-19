@@ -3,26 +3,44 @@
 	<title>Little Mister</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
 	<link rel="stylesheet" type="text/css" href="page_1.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/semantic.js"></script>
-	<script src="page_1.js"></script>
 </head>
 <body>
-	 <!-- Sidebar Menu -->
+	
+	<!-- Sidebar Menu -->
 	<div class="ui left sidebar inverted vertical visible uncover menu">
 		<h1 class="ui header blue" id="menu-name">Little Mister</h1>
+		<!--<a class="item" onclick="switch_button()"><i class="align justify icon"></i>收起</a>-->
 	    <a class="active item" href="page_1.html"><i class="angle right icon"></i> 发布任务 </a>
 	    <a class="item"><i class="angle right  icon"></i> 领取任务 </a>
 	    <a class="item"><i class="angle right icon"></i> 问卷管理 </a>
 	    <a class="item"><i class="angle right icon"></i>个人信息</a>
 		<a class="item"><i class="sign out icon"></i>注销账号</a>
 	</div>
-	<div class="pusher">
-		<!-- main page-->
-	    <button class="ui primary button" onclick="switch_button()">
-	        switch </button>
-	    <!-- <h1>hello Little Miser!</h1> -->
-	</div>
+	
+	<!-- pusher-->
+	<div class="pusher" id="mypusher">
+		<!-- switch button-->
 
+		<button class="ui icon button" onclick="switch_button()">
+	        <i class="align justify icon" onclick="switch_button()"></i> </button>
+		<!--<div onclick="switch_button()"><i class="align justify icon"></i></div>-->
+		<!-- <button class="ui primary button" onclick="switch_button()"> switch </button>-->
+		<!-- main page-->
+	    <div id="release-task">
+
+			<h1 id="myheader"> Hello {{ name }} ! </h1>
+			<h3> Choose the new task you want to create . </h3>
+			<div id="pagebtn">
+				<div class="ui huge inverted blue button" id="pagebtn1" onclick="createWJ()"> 发布问卷 </div>
+				<div class="ui huge primary button"  id="pagebtn2"> 发布快递 </div>
+				<!-- <div class="ui huge inverted blue basic button" id="pagebtn1"> 发布问卷 </div> -->
+				<!-- <div class="ui huge inverted blue button"> 发布快递 </div>	-->
+			</div>
+		</div>
+	</div>
+	<script src="page_1.js"></script>
 </body>
 </html>

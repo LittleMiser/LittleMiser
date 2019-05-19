@@ -1,3 +1,47 @@
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  height: 100%;
+  background: #fff;
+}
 #menu-name {
 	text-align:center
 }
+#mypusher {
+	/*
+	background-image: url("../image/bg02.gif");
+	background-repeat:no-repeat;
+	background-size: 50% 100%;
+	*/
+	
+	background-image: url("../image/bg.gif");
+	background-repeat:no-repeat;
+	background-position: 50% 70%;
+	
+	/*
+	background-image: url("../image/homepage.jpeg");
+	background-repeat:no-repeat;
+	background-position: 50% 70%;
+	*/
+
+}
+#release-task {
+	height:100%;
+	width: 100%;
+	text-align: center;
+	margin-top: 4%;
+}
+#pagebtn {
+	margin-top: 3%;
+}
+#pagebtn1 {
+	margin-right: 3%;
+}
+#myheader {
+	font-size: 30px;
+}
+
