@@ -1,0 +1,88 @@
+<html>
+<head>
+	<title>Little Mister</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="register.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/semantic.js"></script>
+</head>
+<body>
+	
+	<!-- register -->
+	<div id="back-image"></div>
+	<div class="ui middle aligned center aligned grid">
+		<div class="column">
+			<h1>Little Miser</h1>
+			<h2>Register</h2>
+			<div class="ui buttons">
+				<button id="stu" class="ui button active" onclick="selectStudent()">学生</button>
+				<div class="or"></div>
+				<button id="cow" class="ui button disable" onclick="selectCow()">机构</button>
+			</div>
+			
+			<form class="ui form">
+				<div class="field">
+					<div class="field">
+						<label>账号（手机/邮箱）</label>
+						<input type="text" name="username" placeholder="手机/邮箱">
+					</div>
+					<div class="field">
+						<label>密码</label>
+						<input type="password" name="snumber" placeholder="">
+					</div>
+				</div>
+				<div id="student">
+					<h4 class="ui dividing header">个人信息</h4>
+					<div class="field">
+					<div class="two fields">
+							<div class="field">
+								<label>姓名</label>
+								<input type="text" name="sname" placeholder="姓名">
+							</div>
+							<div class="field">
+								<label>学号</label>
+								<input type="text" name="snumber" placeholder="学号">
+							</div>
+					</div>
+					</div>
+					<div class="field">
+						<div class="two fields">
+							<div class="field">
+								<label>年龄</label>
+								<input type="text" name="age" placeholder="年龄">
+							</div>
+							<div class="field">
+								<label>性别</label>
+								<select v-model="selected">
+									<option value="male">男</option>
+									<option value="female">女</option>
+								</select>
+								
+							</div>
+						</div>
+					</div>
+					<div class="field">
+						<div class="two fields">
+							<div class="field">
+								<label>年级</label>
+								<input type="text" name="grade" placeholder="年级">
+							</div>
+							<div class="field">
+								<label>专业</label>
+								<input type="text" name="major" placeholder="专业">
+							</div>
+						</div>
+					</div>
+					<br/>
+				</div>
+				<div class="ui fluid large submit button black">注册</div>
+			</form>
+			<div class="ui message">
+				已注册？ <a href="../index/index.html">去登陆</a>
+			</div>
+		</div>
+	</div>
+	<script src="register.js"></script>
+</body>
+</html>

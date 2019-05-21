@@ -1,0 +1,28 @@
+#back-image {
+    background-image: url("../image/back.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: fixed;
+    width: 105%;
+    height: 105%;
+    opacity: 0.5;
+}
+body{
+    margin : 0;
+}
+body > .grid {
+    height: 100%;
+}
+.column {
+    max-width: 500px;
+}
+h1 {
+    font-size:  40px;
+}
+h2{
+    font-size:  30px;
+    margin-top: 2%;
+}
+form{
+    margin-top: 3%;
+}
