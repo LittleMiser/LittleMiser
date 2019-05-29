@@ -32,8 +32,8 @@ var _register = new Vue ({
       }
     },
     checkPassword(){
-      if(!/^[a-zA-Z]{1}([a-zA-Z0-9]|[._]){4,19}$/.test(this.password)){
-        this.passwordMsg = "密码长度为5-20，以字母开头，可包括数字和“_”、“.”符号";
+      if(!/^(\w){6,20}$/.test(this.password)){
+        this.passwordMsg = "密码长度为6-20，可包括字母、数字和下划线";
         return false;
       }
       else{
