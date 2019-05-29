@@ -16,24 +16,24 @@
 			<h1>Little Miser</h1>
 			<h2>Log In</h2>
 			
-			<form class="ui large form">
+			<form class="ui large form" id="login">
 				<div class="ui stacked">
 					<div class="field">
 						<div class="ui left icon input">
 							<i class="user icon"></i>
-							<input type="text" name="email" placeholder="邮箱/手机">
+							<input type="text" v-model="username" placeholder="邮箱/手机" @blur="checkUsername()">
 						</div>
 					</div>
 					<div class="field">
 						<div class="ui left icon input">
 							<i class="lock icon"></i>
-							<input type="password" name="password" placeholder="密码">
+							<input type="password" v-model="password" placeholder="密码" @blur="checkPassword()">
 						</div>
 					</div>
-					<div class="ui fluid large submit button black">登录</div>
+					<div class="ui fluid large submit button black" @click="logIn($event)">登录</div>
 				</div>
 	
-				<div class="ui error message"></div>
+				<div class="ui error message">{{ errorMsg }}</div>
 	
 			</form>
 	

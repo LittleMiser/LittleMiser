@@ -1,3 +1,105 @@
+var _register = new Vue ({
+  el : "#register",
+  data : {
+    username : "",
+    password : "",
+    nickname : "",
+    sname : "",
+    snumber : "",
+    age : "",
+    selected : "",
+    grade : "",
+    major : "",
+
+    usernameMsg : "",
+    passwordMsg : "",
+    nicknameMsg : "",
+    snameMsg : "",
+    ageMsg : "",
+    sexMsg : "",
+    errorMsg : ""
+  },
+  methods : {
+    checkUsername(){
+      if(!(/^1[34578]\d{9}$/.test(this.username)) && 
+      !(/^([a-zA-Z0-9._-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/.test(this.username))){
+        this.usernameMsg = "请输入正确的邮箱或手机号码";
+        return false;
+      }
+      else{
+        this.usernameMsg = "";
+        return true;
+      }
+    },
+    checkPassword(){
+      if(!/^[a-zA-Z]{1}([a-zA-Z0-9]|[._]){4,19}$/.test(this.password)){
+        this.passwordMsg = "密码长度为5-20，以字母开头，可包括数字和“_”、“.”符号";
+        return false;
+      }
+      else{
+        this.passwordMsg = "";
+        return true;
+      }
+    },
+    checkNickname(){
+      if(this.nickname.length == 0){
+          this.nicknameMsg = "昵称不能为空";
+          return false;
+      }
+      else{
+        this.nicknameMsg = "";
+        return true;
+      }   
+    },
+    checkSnameNumber(){
+      if(this.sname.length == 0 || this.snumber.length == 0){
+        this.snameMsg = "请输入姓名和学号";
+        return false;
+      }
+      else if(/[^\d]/.test(this.snumber)){
+        this.snameMsg = "请输入正确的学号";
+        return false;
+      }
+      else{
+        this.snameMsg = "";
+        return true;       
+      }    
+       
+    },
+    checkAge(){
+      if(/[^\d]/.test(this.age)){
+        this.age = "";
+        this.ageMsg = "非法的年龄";
+        return false;
+      }
+      else{
+        this.ageMsg = "";
+         if(this.selected = ""){
+          this.sexMsg = "请选择性别";
+          return false;
+        }
+        else{
+          this.sexMsg = "";
+          return true;
+        }
+      }
+     
+    },
+    register:function (event) {
+      if(this.checkUsername() && this.checkPassword() && this.checkNickname()
+          && this.checkSnameNumber() && this.checkAge()){
+            alert("注册成功！");
+            $(".error").hide();
+            window.location.href='../index/index.html';
+      }else{
+          this.errorMsg = "请填写正确的必填信息";
+          $(".error").show();
+          event.preventDefault();
+      }
+    }
+  }
+})
+
 function selectStudent(){
   $("#student").show();
   $("#stu").addClass("active");
@@ -11,4 +113,12 @@ function selectCow(){
   $("#stu").removeClass("active");
   $("#cow").addClass("active");
   $("#cow").removeClass("disable");
+}
+
+function isEmail(str){
+  if(str==null) return;
+
+  var reg = new RegExp();
+
+  return reg.test(str);//检测字符串是否符合正则表达式
 }

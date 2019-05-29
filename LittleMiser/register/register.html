@@ -21,62 +21,69 @@
 				<button id="cow" class="ui button disable" onclick="selectCow()">机构</button>
 			</div>
 			
-			<form class="ui form">
+			<form class="ui form" id="register">
 				<div class="field">
 					<div class="field">
-						<label>账号（手机/邮箱）</label>
-						<input type="text" name="username" placeholder="手机/邮箱">
+						<label>账号（手机/邮箱）*</label>
+						<input type="text" v-model="username" placeholder="手机/邮箱" @blur="checkUsername()">
+						<p>{{ usernameMsg }}</p>
 					</div>
 					<div class="field">
-						<label>密码</label>
-						<input type="password" name="snumber" placeholder="">
+						<label>密码 *</label>
+						<input type="password" v-model="password" placeholder="" @keyup="checkPassword()">
+						<p>{{ passwordMsg }}</p>
 					</div>
 				</div>
 				<div id="student">
 					<h4 class="ui dividing header">个人信息</h4>
 					<div class="field">
-					<div class="two fields">
+						<div class="field">
+							<label>昵称 *</label>
+							<input type="text" v-model="nickname" placeholder="昵称" @blur="checkNickname()">
+							<p>{{ nicknameMsg }}</p>
+						</div>
+						<div class="two fields">
 							<div class="field">
-								<label>姓名</label>
-								<input type="text" name="sname" placeholder="姓名">
+								<label>姓名 *</label>
+								<input type="text" v-model="sname" placeholder="姓名" @blur="checkSnameNumber()">
 							</div>
 							<div class="field">
-								<label>学号</label>
-								<input type="text" name="snumber" placeholder="学号">
+								<label>学号 *</label>
+								<input type="text" v-model="snumber" placeholder="学号" @blur="checkSnameNumber()">
 							</div>
-					</div>
-					</div>
-					<div class="field">
+							
+						</div>
+						<p>{{ snameMsg }}</p>
 						<div class="two fields">
 							<div class="field">
 								<label>年龄</label>
-								<input type="text" name="age" placeholder="年龄">
+								<input type="text" v-model="age" placeholder="年龄" @blur="checkAge()">
+								<p>{{ ageMsg }}</p>
 							</div>
 							<div class="field">
-								<label>性别</label>
+								<label>性别 *</label>
 								<select v-model="selected">
 									<option value="male">男</option>
 									<option value="female">女</option>
 								</select>
-								
+								<p>{{ sexMsg }}</p>
 							</div>
 						</div>
-					</div>
-					<div class="field">
 						<div class="two fields">
 							<div class="field">
 								<label>年级</label>
-								<input type="text" name="grade" placeholder="年级">
+								<input type="text" v-model="grade" placeholder="年级">
 							</div>
 							<div class="field">
 								<label>专业</label>
-								<input type="text" name="major" placeholder="专业">
+								<input type="text" v-model="major" placeholder="专业">
 							</div>
 						</div>
 					</div>
 					<br/>
 				</div>
-				<div class="ui fluid large submit button black">注册</div>
+				<div class="ui error message">{{ errorMsg }}</div>
+				<div class="ui fluid large submit button black" @click="register($event)">注册</div>
 			</form>
 			<div class="ui message">
 				已注册？ <a href="../index/index.html">去登录</a>
