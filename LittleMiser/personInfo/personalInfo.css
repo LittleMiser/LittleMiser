@@ -73,3 +73,6 @@ form {
 	word-wrap:break-word;
 	word-break:break-all;
 }
+#menu-name {
+	text-align:center
+}
