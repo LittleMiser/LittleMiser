@@ -27,3 +27,6 @@ function switch_button() {
 function createWJ() {
     window.location.href='../createWJ/createWJ.html'
 }
+function createKD() {
+    window.location.href='../createExpress/createExpress.html';
+}
