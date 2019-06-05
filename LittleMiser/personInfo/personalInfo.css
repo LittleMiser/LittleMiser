@@ -1,14 +1,17 @@
-#mypusher {
-	background-image: url("../image/perInfo.jpg");
-  	background-repeat:no-repeat;
-  	background-size: cover;
+#back-image {
+	background-image: url("../image/bg02.gif");
+	background-size: cover;
+    background-repeat: no-repeat;
+    position: fixed;
+    width: 105%;
+    height: 105%;
 }
 #box {
 	height: 100%;
 	width: 100%;
 }
 #all_info {
-	background-color:#FFFFFF;
+	
 	width:800px;
 	height:380px; 
 	margin-left:8%; 
