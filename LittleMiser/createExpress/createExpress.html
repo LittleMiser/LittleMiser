@@ -1,0 +1,115 @@
+<html>
+<head>
+	<title>Little Mister</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="createExpress.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/semantic.js"></script>
+</head>
+<body>
+	
+	<!-- Sidebar Menu -->
+	<div class="ui left sidebar inverted vertical visible uncover menu">
+		<h1 class="ui header blue" id="menu-name">Little Mister</h1>
+		<!--<a class="item" onclick="switch_button()"><i class="align justify icon"></i>收起</a>-->
+		<a class="active item" href="../page_1/page_1.html"><i class="angle right icon"></i> 发布任务 </a>
+		<a class="item"><i class="angle right  icon"></i> 领取任务 </a>
+		<a class="item"><i class="angle right icon"></i> 问卷管理 </a>
+		<a class="item"  href="../personInfo/personalInfo.html"><i class="angle right icon"></i>个人信息</a>
+		<a class="item"><i class="sign out icon"></i>注销账号</a>
+	</div>
+	
+	<!-- pusher-->
+	<div class="pusher" id="mypusher">
+		<!-- switch button-->
+		<button class="ui icon button" onclick="switch_button()">
+			<i class="align justify icon" onclick="switch_button()"></i> </button>
+		
+		<div id="back-image"></div>
+		<!-- register -->
+		<div class="ui middle aligned center aligned grid">
+				<div class="column">
+					
+					<form class="ui form" id="publish">
+						<div id="student">
+							<h2 class="ui dividing header">快递信息</h2>
+							<div class="field">
+								<div class="two fields">
+									<div class="field">
+										<label>联系人</label>
+										<input type="text" v-model="name" placeholder="联系人" @blur="checkName()">
+										<p>{{ nameMsg }}</p>
+									</div>
+									<div class="field">
+										<label>电话</label>
+										<input type="text" v-model="phone" placeholder="电话" @blur="checkPhone()">
+										<p>{{ phoneMsg }}</p>
+									</div>
+									
+								</div>
+								<div class="two fields">
+									<div class="field">
+										<label>报酬</label>
+										<input type="text" v-model="money" placeholder="报酬" @input="checkMoney()">
+										<p>{{ moneyMsg }}</p>
+									</div>
+								</div>
+								<div class="three fields">
+									<div class="field">
+										<label>省份</label>
+										<!--省份选择-->
+										<select id="prov" onchange="showCity(this)">
+											<option>=请选择省份=</option>
+										</select>
+									</div>
+									<div class="field">
+										<label>城市</label>
+										<!--城市选择-->
+										<select id="city" onchange="showCountry(this)">
+											<option>=请选择城市=</option>
+										</select>
+									</div>
+									<div class="field">
+										<label>县区</label>
+										<!--县区选择-->
+										<select id="country" onchange="selecCountry(this)">
+											<option>=请选择县区=</option>
+										</select>
+									</div>
+								</div>
+								<p>{{ addressMsg }}</p>
+								<div class="ui small message">
+								<label>您选择的位置信息是：
+									<input type="text" readonly="readonly" v-model.trim="address" id="addr-show">
+								</label>
+								</div>
+								<div class="field">
+									<label>领取地址</label>
+									<input type="text" v-model.trim="getAddress" placeholder="领取地址" @blur="checkAddress()">
+									<p>{{ getAddressMsg }}</p>
+								</div>
+								<div class="field">
+									<label>送达地址</label>
+									<input type="text" v-model.trim="postAddress" placeholder="送达地址" @blur="checkPAddress()">
+									<p>{{ postAddressMsg }}</p>
+								</div>
+								<div class="field">
+									<label>物品描述</label>
+									<textarea rows="3" v-model.trim="info" placeholder="物品描述" @blur="checkInfo()"></textarea>
+									<p>{{ infoMsg }}</p>
+								</div>
+							</div>
+							<br/>
+						</div>
+						<div class="ui error message">{{ errorMsg }}</div>
+						<div class="ui fluid large submit button black" @click="publish($event)">发布</div>
+					</form>
+				</div>
+			</div>
+	</div>
+	
+	<script src="city.js"></script>
+	<script src="createExpress.js"></script>
+</body>
+</html>

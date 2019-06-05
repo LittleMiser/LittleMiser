@@ -18,9 +18,11 @@ function switch_button() {
         },
         onShow: function() {
             $('.ui.sidebar').css("z-index",999);
+            $('#mypusher').css("width","80%");
         },
         onHide: function() {
             $('.ui.sidebar').css("z-index",1);
+            $('#mypusher').css("width","100%");
         }
     }).sidebar('toggle');
 }
