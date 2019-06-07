@@ -1,0 +1,107 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Little Mister</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="getMission.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/semantic.js"></script>
+</head>
+<body>
+	
+	<!-- Sidebar Menu -->
+	<div class="ui left sidebar inverted vertical visible uncover menu">
+		<h1 class="ui header blue" id="menu-name">Little Mister</h1>
+		<!--<a class="item" onclick="switch_button()"><i class="align justify icon"></i>收起</a>-->
+	    <a class="item" href="../page_1/page_1.html"><i class="angle right icon"></i> 发布任务 </a>
+	    <a class="active item" href="getMission.html"><i class="angle right  icon"></i> 领取任务 </a>
+	    <a class="item"><i class="angle right icon"></i> 问卷管理 </a>
+	    <a class="item"  href="../personInfo/personalInfo.html"><i class="angle right icon"></i>个人信息</a>
+		<a class="item"><i class="sign out icon"></i>注销账号</a>
+	</div>
+	
+	<!-- pusher-->
+	<div class="pusher" id="mypusher">
+		<!-- switch button-->
+
+		<button class="ui icon button" onclick="switch_button()">
+	        <i class="align justify icon" onclick="switch_button()"></i> </button>
+		
+		<div id="back-image"></div>
+		<!-- main page-->
+		<div id="release-task">
+			<h1 id="myheader"> Hello {{ name }} ! </h1>
+			<h3> 你想领取哪种任务？ </h3>
+			<div id="pagebtn">
+				<div class="ui huge inverted blue button" id="pagebtn1" onclick="getWJ()"> 问卷任务 </div>
+				<div class="ui huge inverted blue button"  id="pagebtn2"  onclick="getKD()"> 快递任务 </div>
+			</div>
+		</div>
+
+		<div id="questionnaire-list" hidden>
+			<button class="ui basic icon button" onclick="return_button()">
+				<i class="reply icon"></i>
+			</button>
+			<form v-on:submit.prevent="searchQuestion">
+				<div class="ui search">
+					<div class="ui large icon input">	
+						<input class="prompt" 
+							v-model="newQuestionText"
+							id="new-question"
+							placeholder="搜索">
+						<i class="search icon"></i>
+					</div>
+					<button class="circular ui button">搜索</button>
+				</div>
+			</form>
+		
+			<div  class="ui cards">
+				<div
+					is="question-item"
+					v-for="(question, index) in questions"
+					v-bind:key="question.id"
+					v-bind:title="question.title"
+					v-bind:author="question.author"
+					v-bind:deadline="question.deadline"
+					v-on:remove="questions.splice(index, 1)"
+				></div>
+			</div>
+		</div>
+
+		<div id="express-list"  hidden>
+			<button class="ui basic icon button" onclick="return_button()">
+				<i class="reply icon"></i>
+			</button>
+			<form v-on:submit.prevent="searchExpress">
+				<div class="ui search">
+					<div class="ui large icon input">	
+						<input class="prompt" 
+							v-model="newExpressText"
+							id="new-express"
+							placeholder="搜索">
+						<i class="search icon"></i>
+					</div>
+					<button class="circular ui button">搜索</button>
+				</div>
+			</form>
+		
+			<div  class="ui cards">
+				<div
+					is="express-item"
+					v-for="(express, index) in expresses"
+					v-bind:key="express.id"
+					v-bind:address="express.address"
+					v-bind:author="express.author"
+					v-bind:deadline="express.deadline"
+					v-bind:money="express.money"
+					v-on:remove="expresses.splice(index, 1)"
+				></div>
+			</div>
+		</div>
+	</div>
+
+	
+	<script src="getMission.js"></script>
+</body>
+</html>

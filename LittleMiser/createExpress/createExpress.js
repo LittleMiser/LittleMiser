@@ -188,7 +188,7 @@ function switch_button() {
       dimPmoney : false,
       onVisible: function() {
           $('body').click(function(e){
-              this.unbind(e);
+            this.unbind(e);
           });
       },
       onShow: function() {

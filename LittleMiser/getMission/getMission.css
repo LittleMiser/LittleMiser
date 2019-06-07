@@ -1,0 +1,49 @@
+
+#back-image {
+    background-image: url("../image/bg02.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: fixed;
+    width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+body{
+    margin : 0;
+    height: 100%;
+}
+body > .grid {
+    height: 100%;
+}
+#questionnaire-list, #express-list{
+    width: 100%;
+    margin-left: 5%;
+}
+form{
+    margin-left: 30%;
+}
+
+#menu-name {
+    text-align:center;
+    margin-top: 5%;
+}
+#mypusher {
+	width: 80%;
+	height: 100%;
+}
+#release-task {
+	width: 100%;
+	text-align: center;
+}
+#pagebtn {
+	margin-top: 3%;
+}
+#pagebtn1 {
+	margin-right: 3%;
+}
+#myheader {
+    margin-top: 10%;
+	font-size: 30px;
+}
+  
+  
