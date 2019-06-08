@@ -95,6 +95,21 @@ var _publish = new Vue ({
     publish:function (event) {
       if(this.checkName() && this.checkPhone() && this.checkMoney() 
       && this.checkAddress() && this.checkInfo()){
+        var data_ = { name: this.name, 
+          phone: this.phone, 
+          money: parseFloat(this.money),
+          address: this.address,
+          getAdress: this.getAddress,
+          postAddress: this.postAddress,
+          info: this.info
+        };
+        // 通过axios获取数据
+        axios.post('http://localhost:1998/createExpress/createExpress.html', data_)
+          .then(resp => {
+            console.log(resp.data_);
+          }).catch(err => {
+            console.log('请求失败：'+err.status+','+err.statusText);
+          });
             alert("发布成功！");
             $(".error").hide();
             //window.location.href='../index/index.html';
