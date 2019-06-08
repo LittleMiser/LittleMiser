@@ -1,70 +1,12 @@
-//问卷信息
-Vue.component('question-item', {
-  template: '\
-      <div class="black card">\
-        <div class="content">\
-          <div class="header">{{ title }}\</div>\
-          <div class="description">\
-            <p>发布者：{{ author }}</p>\
-          </div>\
-          <div class="meta">\
-            <span class="date">截止日期：{{ deadline }}</span>\
-          </div>\
-        </div>\
-        <div class="ui bottom attached button" v-on:click="$emit(\'remove\')">\
-          <i class="large edit icon"></i>\
-          填写问卷\
-        </div>\
-      </div>\
-  ',
-  props: ['title', 'author', 'deadline']
-})
-  
-new Vue({
-  el: '#questionnaire-list',
-  data: {
-    newQuestionText: '',
-    questions: [
-      {
-        id: 1,
-        title: 'Do the dishes',
-        author: '张三',
-        deadline: '2019.6.8'
-      },
-      {
-        id: 2,
-        title: 'Take out the trash',
-        author: '李四',
-        deadline: '2019.6.9'
-      },
-      {
-        id: 3,
-        title: 'Mow the lawn',
-        author: '王五',
-        deadline: '2019.6.10'
-      }
-    ],
-    nextQuestionId: 4
-  },
-  methods: {
-    searchQuestion: function () {
-      this.questions.push({
-        id: this.nextQuestionId++,
-        title: this.newQuestionText,
-        author: 'xxx',
-        deadline: 'xxxx-xx-xx'
-      })
-      this.newQuestionText = ''
-    }
-  }
-})
-
+$(document).ready(function(){
+  divedePage(1);
+});
 //快递信息
 Vue.component('express-item', {
   template: '\
       <div class="black card">\
         <div class="content">\
-          <div class="header">领取地址：{{ address }}\</div>\
+          <div class="tiny header">领取地址：{{ address }}\</div>\
           <div class="description">\
             <p>发布者：{{ author }}</p>\
           </div>\
@@ -84,7 +26,7 @@ Vue.component('express-item', {
   props: ['address', 'author', 'deadline', 'money']
 })
   
-new Vue({
+var exp = new Vue({
   el: '#express-list',
   data: {
     newExpressText: '',
@@ -121,18 +63,42 @@ new Vue({
         author: 'xxx',
         deadline: 'xxxx-xx-xx',
         money: '$0.0'
-      })
+      });
+      setTimeout(function(){ divedePage(exp.expresses.length); }, 300);
       this.newExpressText = ''
     }
   }
 })
 
-var app = new Vue({ 
-  el: '#myheader',
-  data: {
-      name: 'Little Miser'
+function divedePage(pageCount) {
+  // $("#pagination").pagination(pageCount); //简单初始化方法
+
+  $("#pagination").pagination(pageCount,    //分布总数量，必须参数
+  {
+    callback: PageCallback,  //PageCallback() 为翻页调用次函数。
+    prev_text: "上一页",
+    next_text: "下一页",
+    items_per_page:9,
+    num_edge_entries: 2,       //两侧首尾分页条目数
+    num_display_entries: 6,    //连续分页主体部分分页条目数
+    current_page: 0 //当前页索引
+  });
+  
+}
+  
+function PageCallback(page_index,jq)
+{
+  //console.log(page_index, exp.expresses.length);
+  for(var i = 0; i < exp.expresses.length; i++){
+    if(parseInt (i / 9) == page_index){
+      $(".black.card:eq(" + i +")").show();
+    }
+    else{
+      $(".black.card:eq(" + i +")").hide();
+    }
+    
   }
-});
+}
 
 function switch_button() {
 
@@ -155,16 +121,5 @@ function switch_button() {
     }).sidebar('toggle');
 }
 function return_button(){
-  $('#release-task').show();
-  $('#questionnaire-list').hide();
-  $('#express-list').hide();
-}
-
-function getWJ() {
-  $('#release-task').hide();
-  $('#questionnaire-list').show();
-}
-function getKD() {
-  $('#release-task').hide();
-  $('#express-list').show();
+  window.location.href='../getQuestion/getQuestion.html'
 }

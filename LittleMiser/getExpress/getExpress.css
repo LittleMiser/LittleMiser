@@ -19,9 +19,17 @@ body > .grid {
 #questionnaire-list, #express-list{
     width: 100%;
     margin-left: 5%;
+    margin-right: 5%;
 }
 form{
+    margin-top: -3%;
     margin-left: 30%;
+}
+#pagination{
+    width: auto;
+    margin-left: 20%;
+    margin-right: 26%;
+    margin-bottom: 1%;
 }
 
 #menu-name {
@@ -31,20 +39,6 @@ form{
 #mypusher {
 	width: 80%;
 	height: 100%;
-}
-#release-task {
-	width: 100%;
-	text-align: center;
-}
-#pagebtn {
-	margin-top: 3%;
-}
-#pagebtn1 {
-	margin-right: 3%;
-}
-#myheader {
-    margin-top: 10%;
-	font-size: 30px;
 }
   
   
