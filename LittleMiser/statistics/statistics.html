@@ -41,7 +41,7 @@
 				<div 
 					is="question-item"
 					v-for="(question, index) in questions"
-					v-bind:key="question.id"
+					v-bind:id="question.id"
 					v-bind:topic="question.topic"
 					v-bind:type="question.type"
 				></div>

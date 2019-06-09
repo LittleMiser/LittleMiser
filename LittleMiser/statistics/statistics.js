@@ -1,11 +1,11 @@
 Vue.component('question-item', {
   template: '\
     <div class="ui message">\
-      <h3 class="header">{{ type }}题： {{ topic }}</h3>\
+      <h3 class="header"> {{ id }}. {{ type }}题： {{ topic }}</h3>\
       <div class="chart"></div>\
     </div>\
   ',
-  props: ['topic', 'type']
+  props: ['id', 'topic', 'type']
 })
   
 function drawChart(index, question){
