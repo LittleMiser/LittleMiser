@@ -1,9 +1,9 @@
 var mongoose = require('mongoose')
 
 //数据库地址
-DB_URL = 'mongodb://localhost:27017/express';
+DB_URL = 'mongodb://localhost:27017/LittleMiser';
 
-mongoose.connect(DB_URL);
+mongoose.connect(DB_URL,{ useNewUrlParser: true });
 console.log('connect success');
 
 mongoose.connection.on('disconnected',function(){

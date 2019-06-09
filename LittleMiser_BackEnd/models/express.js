@@ -1,4 +1,4 @@
-var mongoose = require('../db'),
+var mongoose = require('./db'),
     Schema = mongoose.Schema;
 
 var ExpressSchema = new Schema({
