@@ -32,6 +32,7 @@ var exp = new Vue({
   el: '#express-list',
   data: {
     newExpressText: '',
+    location: '',
     expresses: [
       {
         id: 1,
@@ -67,7 +68,8 @@ var exp = new Vue({
         money: '$0.0'
       });
       setTimeout(function(){ divedePage(exp.expresses.length); }, 300);
-      this.newExpressText = ''
+      this.newExpressText = '';
+      console.log(this.location);
     }
   }
 })
@@ -130,7 +132,6 @@ function return_button(){
 var prov = document.getElementById('prov');
 var city = document.getElementById('city');
 var country = document.getElementById('country');
-var address = '';
 
 /*用于保存当前所选的省市区*/
 var current = {
@@ -155,8 +156,8 @@ function showCity(obj) {
   var val = obj.options[obj.selectedIndex].value;
   if (val != current.prov) {
       current.prov = val;
-      address = provice[current.prov].name;
-      console.log(address);
+      exp.location = provice[current.prov].name;
+      console.log(exp.location);
   }
   //console.log(val);
   if (val != null) {
@@ -177,8 +178,8 @@ function showCountry(obj) {
   current.city = val;
   if (val != null) {
       country.length = 1; //清空之前的内容只留第一个默认选项
-      address += '-' + provice[current.prov]["city"][current.city].name;
-      console.log(address);
+      exp.location += '-' + provice[current.prov]["city"][current.city].name;
+      console.log(exp.location);
       var countryLen = provice[current.prov]["city"][val].districtAndCounty.length;
       if (countryLen == 0) {
           return;
@@ -196,7 +197,7 @@ function showCountry(obj) {
 function selecCountry(obj) {
   current.country = obj.options[obj.selectedIndex].value;
   if ((current.city != null) && (current.country != null)) {
-    address += '-' + provice[current.prov]["city"][current.city].districtAndCounty[current.country];
+    exp.location += '-' + provice[current.prov]["city"][current.city].districtAndCounty[current.country];
   }
-  console.log(address);
+  console.log(exp.location);
 }
