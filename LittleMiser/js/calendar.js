@@ -57,7 +57,7 @@
           }
           $("#calendar").find("input").val(y+"-"+m+"-"+d);
           $("#cal").remove();
-          $("#calendar").css("height","104px");
+          $("#calendar").css("height","62px");
       },
       //点击下月
       nextFun:function(){
