@@ -16,20 +16,29 @@ body{
 body > .grid {
     height: 100%;
 }
-#questionnaire-list, #express-list{
+#express-list{
     width: 100%;
     margin-left: 5%;
     margin-right: 5%;
 }
-form{
-    margin-top: -3%;
-    margin-left: 30%;
+#search{
+    display: inline-block;
+    margin-top: 2%;
+    margin-left: 1%;
+    position: absolute;
+    width: 40%;
+}
+.ui.form{
+    display: inline-block;
+    margin-left: 2%;
+    width: 40%;
 }
 #pagination{
     width: auto;
     margin-left: 20%;
     margin-right: 26%;
     margin-bottom: 1%;
+    margin-top: 1%;
 }
 
 #menu-name {

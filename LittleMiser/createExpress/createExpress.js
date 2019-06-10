@@ -150,7 +150,7 @@ function showCity(obj) {
   var val = obj.options[obj.selectedIndex].value;
   if (val != current.prov) {
       current.prov = val;
-      _publish.address = '';
+      _publish.address = provice[current.prov].name;
   }
   //console.log(val);
   if (val != null) {
@@ -171,9 +171,9 @@ function showCountry(obj) {
   current.city = val;
   if (val != null) {
       country.length = 1; //清空之前的内容只留第一个默认选项
+      _publish.address += '-' + provice[current.prov]["city"][current.city].name;
       var countryLen = provice[current.prov]["city"][val].districtAndCounty.length;
       if (countryLen == 0) {
-          _publish.address = provice[current.prov].name + '-' + provice[current.prov]["city"][current.city].name;
           return;
       }
       for (var n = 0; n < countryLen; n++) {
@@ -189,9 +189,7 @@ function showCountry(obj) {
 function selecCountry(obj) {
   current.country = obj.options[obj.selectedIndex].value;
   if ((current.city != null) && (current.country != null)) {
-    _publish.address = provice[current.prov].name + '-' 
-      + provice[current.prov]["city"][current.city].name + '-' 
-      + provice[current.prov]["city"][current.city].districtAndCounty[current.country];
+    _publish.address += '-' + provice[current.prov]["city"][current.city].districtAndCounty[current.country];
     _publish.addressMsg = "";
   }
 }
