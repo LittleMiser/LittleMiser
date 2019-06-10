@@ -3,6 +3,7 @@ var _publish = new Vue ({
   data : {
     name : "",
     phone : "",
+    deadline: "",
     address : "",
     money : "",
     getAddress : "",
@@ -93,6 +94,8 @@ var _publish = new Vue ({
       }
     },
     publish:function (event) {
+      this.deadline = $("#calendar").find("input").val();
+      console.log(this.deadline);
       if(this.checkName() && this.checkPhone() && this.checkMoney() 
       && this.checkAddress() && this.checkInfo()){
         var data_ = { name: this.name, 
@@ -193,6 +196,16 @@ function selecCountry(obj) {
     _publish.addressMsg = "";
   }
 }
+
+$("#calendar").find("input").click(function(){
+  if($("#cal").length==0){
+     var c = new Calendar();
+     $("#calendar").css("height","370px");
+  }else{
+    $("#cal").remove();
+    $("#calendar").css("height","62px");
+  } 
+});
 
 function switch_button() {
 
