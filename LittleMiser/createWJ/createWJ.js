@@ -1,8 +1,8 @@
 var vm = new Vue(
 {
     el:'#qus-list',
-    wjtitle:'23333',
     data:{
+	wjtitle:'23333',
     	//问题列表的inHtml信息
     	questionlist:[],
     	//问卷类型
