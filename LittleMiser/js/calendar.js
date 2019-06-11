@@ -55,7 +55,8 @@
                 y=parseInt(y)+1;
                };
           }
-          $("#calendar").find("input").val(y+"-"+m+"-"+d);
+          $("#timeInput").text(y+"-"+m+"-"+d);
+          $("#timeInput").val(y+"-"+m+"-"+d);
           $("#cal").remove();
           $("#calendar").css("height","62px");
       },

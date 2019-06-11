@@ -1,7 +1,25 @@
 $(document).ready(function(){
+  var data = {};
+  // 读取JSON数据，存入expresses数组中
+  axios.get('http://localhost:1998/getExpress/get.json')
+    .then(res => {
+      data = res.data;
+      console.log(data[0].contact);
+      for(var i = 0; i < data.length; i++) {
+        exp.expresses.push({
+          id: exp.nextExpressId++,
+          address: data[i].delivery_address,
+          author: data[i].contact,
+          deadline: data[i].due_date,
+          money: data[i].payment
+        });
+      };
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   divedePage(1);
 });
-
 
 //快递信息
 Vue.component('express-item', {
@@ -33,30 +51,8 @@ var exp = new Vue({
   data: {
     newExpressText: '',
     location: '',
-    expresses: [
-      {
-        id: 1,
-        address: '菜鸟驿站',
-        author: '张三',
-        deadline: '2019.6.8',
-        money: '$2'
-      },
-      {
-        id: 2,
-        address: '丰巢',
-        author: '李四',
-        deadline: '2019.6.9',
-        money: '$3'
-      },
-      {
-        id: 3,
-        address: '天桥底',
-        author: '王五',
-        deadline: '2019.6.10',
-        money: '$4'
-      }
-    ],
-    nextExpressId: 4
+    expresses: [],
+    nextExpressId: 1
   },
   methods: {
     searchExpress: function () {

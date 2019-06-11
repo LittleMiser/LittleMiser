@@ -94,13 +94,14 @@ var _publish = new Vue ({
       }
     },
     publish:function (event) {
-      this.deadline = $("#calendar").find("input").val();
+      this.deadline = $("#timeInput").val();
       console.log(this.deadline);
       if(this.checkName() && this.checkPhone() && this.checkMoney() 
       && this.checkAddress() && this.checkInfo()){
         var data_ = { name: this.name, 
           phone: this.phone, 
           money: parseFloat(this.money),
+          deadline: this.deadline,
           address: this.address,
           getAdress: this.getAddress,
           postAddress: this.postAddress,
@@ -109,7 +110,7 @@ var _publish = new Vue ({
         // 通过axios获取数据
         axios.post('http://localhost:1998/createExpress/createExpress.html', data_)
           .then(resp => {
-            console.log(resp.data_);
+            console.log(data_);
           }).catch(err => {
             console.log('请求失败：'+err.status+','+err.statusText);
           });
@@ -197,7 +198,7 @@ function selecCountry(obj) {
   }
 }
 
-$("#calendar").find("input").click(function(){
+$("#timeInput").click(function(){
   if($("#cal").length==0){
      var c = new Calendar();
      $("#calendar").css("height","370px");
