@@ -1,14 +1,226 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>Little Mister</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
 	<link rel="stylesheet" type="text/css" href="createWJ.css">
+	<link rel="stylesheet" type="text/css" href="calendar.css">
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/semantic.js"></script>
+	<script src="calendar.js" charset="utf-8"></script>
 </head>
 <body>
-	<h1>hello create page!</h1>
+	
+
+	<!-- Sidebar Menu -->
+	<div class="ui left sidebar inverted vertical visible uncover menu">
+		<h1 class="ui header blue" id="menu-name">Little Mister</h1>
+		<!--<a class="item" onclick="switch_button()"><i class="align justify icon"></i>收起</a>-->
+	    <a class="active item" href="../page_1/page_1.html"><i class="angle right icon"></i> 发布任务 </a>
+	    <a class="item" href="../getQuestion/getQuestion.html"><i class="angle right  icon"></i> 领取任务 </a>
+	    <a class="item"><i class="angle right icon"></i> 问卷管理 </a>
+	    <a class="item"  href="../personInfo/personalInfo.html"><i class="angle right icon"></i>个人信息</a>
+		<a class="item"><i class="sign out icon"></i>注销账号</a>
+	</div>
+	
+	<!-- pusher-->
+	<div class="pusher" id="mypusher">
+		<!-- switch button-->
+		<button class="ui icon button" onclick="switch_button()">
+	        <i class="align justify icon" onclick="switch_button()"></i> </button>
+	<!-- pusher -->	
+	<!--</div>-->
+
+	<div class="ui segment" id="form-container">
+		<!-- form -->
+	  <div class="ui fluid form">
+	  	<!-- title -->
+	  	<input id="wjtitle" type="text" value="这里是标题">	
+	  	<div class="ui divider"></div>
+	  	<!-- add question -->
+
+	  	<div id="app">
+	    <div  id="container" class="ui styled accordion">
+			  <div class="active title">
+			    <i class="dropdown icon"></i>
+			    问卷类型
+			  </div>
+
+			  <div class="active content">
+			   
+			    <div class="accordion" id="select-accord">
+			      <div class="title">
+			          <i class="dropdown icon"></i>
+			          单选题
+			      </div>
+			      <div class="content">
+			      	<div class="select">
+			      		<input placeholder="提出的问题" type="text" id="singletitle">
+			      		<p id="singlequs"></p>
+			      	</div>
+			      	<div class="select">
+			      		<input placeholder="选项文本A" type="text" id="singlea">	
+			      	</div>
+			      	<div class="select">
+			      		<input placeholder="选项文本B"   type="text" id="singleb">	
+			      	</div>
+			      	<div class="select">
+			      		<input placeholder="选项文本C"  type="text" id="singlec">	
+			      	</div>
+			        
+			        <button  class="ui secondary submit button" id="single" onclick="selectSingle()">提交</button>
+			        
+			        
+			      </div>
+
+			      <div class="title">
+			          <i class="dropdown icon"></i>
+			          多选题
+			      </div>
+			      <div class="content">
+			      	<div class="select">
+			      		<input placeholder="提出的问题" type="text" id="mutititle">
+			      	</div>
+			        <div class="select">
+			      		<input placeholder="选项文本A"  type="text"  id="mutia">	
+			      	</div>
+			      	<div class="select">
+			      		<input placeholder="选项文本B"  type="text" id="mutib">	
+			      	</div>
+			      	<div class="select">
+			      		<input placeholder="选项文本C"  type="text" id="mutic">	
+			      	</div>
+			        
+			        <button  class="ui secondary submit button" onclick="selectMuti()">提交</button>
+			      </div>
+
+			      <!--问答题-->
+			      <div class="title">
+			          <i class="dropdown icon"></i>
+			          问答题
+			      </div>
+			      <div class="content">
+			      	<div class="select">
+			      		<input placeholder="提出的问题" type="text" id="wendatitle">
+			      	</div>
+			          <button  class="ui secondary submit button" onclick="selectWenda()">提交</button>
+			      </div>
+			    
+			    </div>
+			    <!--
+			    <button  class="ui secondary submit button" id="deletelast" onclick="deletethis()">删除上一个回答</button>
+					-->
+			  </div>
+			  
+
+
+			</div>
+			<!-- 问题框架 -->
+
+			<!-- 尝试输出 -->
+			<div id="qus-list" >
+			  
+			</div>
+			
+			<!-- 单选
+			<div class="ui form ansarea" >
+			  <div class="grouped fields">
+			    <label>{{message}}</label>
+			    <div class="field">
+			      <div class="ui radio checkbox">
+			        <input type="radio" name="example2" checked="checked">
+			        <label>{{singleList[0].text}}</label>
+			      </div>
+			    </div>
+			    <div class="field">
+			      <div class="ui radio checkbox">
+			        <input type="radio" name="example2">
+			        <label>{{singleList[1].text}}</label>
+			      </div>
+			    </div>
+			    <div class="field">
+			      <div class="ui radio checkbox">
+			        <input type="radio" name="example2">
+			        <label>{{singleList[2].text}}</label>
+			      </div>
+			    </div> 
+			    <div id="delbtn" onclick="deletethis()" >删除</div>
+			  </div>
+			</div>
+			 -->
+			<!-- 多选 
+			<div class='ui form ansarea'>
+			  <div class='grouped fields'>
+			    <label>{{message}}</label>
+			    <div class='field'>
+			      <div class='ui checkbox'>
+			        <input type='checkbox' name='example2'>
+			        <label>{{doubleList[0].text}}</label>
+			      </div>
+			    </div>
+			    <div class='field'>
+			      <div class='ui checkbox'>
+			        <input type='checkbox' name='example2'>
+			        <label>{{doubleList[1].text}}</label>
+			      </div>
+			    </div>
+			    <div class='field'>
+			      <div class='ui checkbox'>
+			        <input type='checkbox' name='example2'>
+			        <label>{{doubleList[2].text}}</label>
+			      </div>
+			    </div> 
+
+			  </div>
+			</div>
+			-->
+			<!-- 文本框
+			<div class='ui form ansarea wenda'>
+				<textarea rows='3' placeholder='问答题答案'></textarea>	
+			</div>
+			-->
+
+			</div>
+			<!--<div id="list-area">
+				<div 
+					is="question-list"
+					v-for="(question, index) in questions"
+					v-bind:id="question.id"
+					v-bind:topic="question.topic"
+					v-bind:type="question.type"
+				></div>	
+			</div>-->
+			
+
+
+			<div class="ui divider"></div>
+			<!-- calendar -->
+	    <label id="ddl">截止日期</label>
+	      <div class="ui calendar" id="mycalender">
+			    <div class="ui input left icon">
+			      <i class="calendar icon"></i>
+			      <input type="text" placeholder="Date" value="2019-05-20">
+			    </div>
+				</div>
+	    <!-- button -->
+	    <div class="ui divider"></div>
+
+	    <div id="btn">
+	    	<button class="ui secondary submit button" onclick="save()">保存问卷</button>
+        <button class="ui secondary submit button" onclick="fabu()">发布问卷</button>
+	    </div>
+
+	  </div>
+	</div>
+<!-- pusher -->
+<!--</div>-->	
+</div>
+
+<script src="createWJ.js" charset="utf-8"></script>
+
+
+</body>
 </body>
 </html>
