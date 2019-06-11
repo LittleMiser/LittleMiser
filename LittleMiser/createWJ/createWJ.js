@@ -69,6 +69,11 @@ function selectSingle() {
 		singlea = $("#singlea").val(),
 		singleb = $("#singleb").val(),
 		singlec = $("#singlec").val();
+		//判断
+		if(mytext == '' || singlea == '' || singleb == '' || singlec == ''){
+			alert("题目和选项不可为空！");
+			return;
+		}
 		//存储
 		vm.title_list.push(mytext);
 		vm.a_list.push(singlea);
@@ -124,6 +129,11 @@ function selectMuti(){
 		mutia = $("#mutia").val(),
 		mutib = $("#mutib").val(),
 		mutic = $("#mutic").val();
+		//判断
+		if(mytext == '' || mutia == '' || mutib == '' || mutic == ''){
+			alert("题目和选项不可为空！");
+			return;
+		}
 		//记录
 		vm.title_list.push(mytext);
 		vm.a_list.push(mutia);
@@ -171,6 +181,11 @@ function selectMuti(){
 
 function selectWenda(){
 	var mytext = $("#wendatitle").val();
+	//判断
+		if(mytext == ''){
+			alert("题目不可为空！");
+			return;
+		}
 	vm.title_list.push(mytext);
 	vm.a_list.push("");
 	vm.b_list.push("");
