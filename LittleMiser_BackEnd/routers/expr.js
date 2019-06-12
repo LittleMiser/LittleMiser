@@ -7,16 +7,19 @@ var db = mongoose.connection;
 
 // 显示创建快递（信息）网页
 router.get('/createExpress/createExpress.html',function(req,res){
+    console.log('1')
     res.render('createExpress/createExpress.html')
 })
 
 // 显示领取快递（信息）网页
 router.get('/getExpress/getExpress.html',function(req,res){
+    console.log('3')
     res.render('getExpress/getExpress.html')
 })
 
 // 读取数据库中快递数据，写入get.json文件
 router.get('/getExpress/get.json',function(req,res){
+    console.log('2');
     db.collection('expresses').find({}).toArray(function(err, response) {
         console.log(response)
         res.send(response)
@@ -48,6 +51,7 @@ function insert(name, phoneNum, pay, deadline, address, getAddress, postAddress,
 }
 
 router.post('/createExpress/createExpress.html', function (req, res) {
+    console.log('4')
     // 处理跨域
     res.setHeader('Content-type','application/json;charset=utf-8')
     res.header("Access-Control-Allow-Origin", "*");

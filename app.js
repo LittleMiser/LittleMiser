@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
-var routes = require('./LittleMiser_BackEnd/routers/expr');
+var expr = require('./LittleMiser_BackEnd/routers/expr');
+var paper = require('./LittleMiser_BackEnd/routers/paper')
 const ejs = require('ejs');
 
 var bodyParser = require('body-parser');
@@ -12,13 +13,13 @@ app.engine('html',ejs.renderFile);
 app.set('views','LittleMiser');
 app.set('view engine','html');
 
-app.use('/', routes);
+app.use('/createWJ', paper);
+app.use('/', expr);
 app.use(express.static(__dirname + '/LittleMiser'));
 
 app.get('/index/', function(req,res){
-    res.render('index/index.html')
+    res.render('index/index')
 })
-
 
 app.listen(1998);
 
