@@ -54,9 +54,11 @@ $('#mycalender').calendar({type: 'date'});
 function fabu() {
 
 	var _data = { 
-		creator: 'zhangsan',
+		//creator: 'zhangsan',
 		title: vm.wjtitle, 
-		questions: vm.questionMix
+		questions: vm.questionMix,
+		answer: {},
+		deadline: $('#timeInput').val()
 	  };
 	  console.log(_data);
 	  axios.post('/createWJ/post_wj', _data)

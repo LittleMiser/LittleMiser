@@ -1,4 +1,22 @@
 $(document).ready(function(){
+  var _data = {};
+  axios.post('/getQuestion/post_wj')
+    .then(res => {
+      console.log(res);
+      _data = res.data;
+      console.log(_data);
+      for(var i = 0; i < _data.length; i++) {
+        que.questions.push({
+          id: que.nextQuestionId++,
+          title: _data[i].title,
+          author: _data[i].author ||'zhangsan',
+          deadline: _data[i].deadline
+        });
+      };
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   divedePage(1);
 });
 //问卷信息
@@ -27,27 +45,8 @@ var que = new Vue({
   el: '#questionnaire-list',
   data: {
     newQuestionText: '',
-    questions: [
-      {
-        id: 1,
-        title: 'Do the dishes',
-        author: '张三',
-        deadline: '2019.6.8'
-      },
-      {
-        id: 2,
-        title: 'Take out the trash',
-        author: '李四',
-        deadline: '2019.6.9'
-      },
-      {
-        id: 3,
-        title: 'Mow the lawn',
-        author: '王五',
-        deadline: '2019.6.10'
-      }
-    ],
-    nextQuestionId: 4
+    questions: [],
+    nextQuestionId: 1
   },
   methods: {
     searchQuestion: function () {

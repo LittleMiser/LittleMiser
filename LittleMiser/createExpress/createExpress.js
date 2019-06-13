@@ -108,7 +108,7 @@ var _publish = new Vue ({
           info: this.info
         };
         // 通过axios获取数据
-        axios.post('http://localhost:1998/createExpress/createExpress.html', data_)
+        axios.post('/createExpress/createExpress.html', data_)
           .then(resp => {
             console.log(data_);
           }).catch(err => {
