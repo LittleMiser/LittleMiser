@@ -83,6 +83,10 @@ var que = new Vue({
       this.fabu_questions.pop();
       this.fabu_nextQuestionId--;
       setTimeout(function(){ divedePage(que.fabu_questions.length); }, 10);
+      $('#jieshou_list').hide();
+      $('#fabu_list').show();
+      this.isB = true;
+      this.isD = false;
     },
     getKD:function() {
       window.location.href='../manageExpress/manageExpress.html'
