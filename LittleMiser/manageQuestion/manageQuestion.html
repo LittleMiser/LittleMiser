@@ -1,0 +1,106 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Little Mister</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="manageQuestion.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/semantic.js"></script>
+	<script src="../js/jquery.pagination.js"></script>
+</head>
+<body>
+	
+	<!-- Sidebar Menu -->
+	<div class="ui left sidebar inverted vertical visible uncover menu">
+		<h1 class="ui header blue" id="menu-name">Little Mister</h1>
+		<!--<a class="item" onclick="switch_button()"><i class="align justify icon"></i>收起</a>-->
+	    <a class="item" href="../page_1/page_1.html"><i class="angle right icon"></i> 发布任务 </a>
+	    <a class="item" href="../getQuestion/getQuestion.html"><i class="angle right  icon"></i> 领取任务 </a>
+	    <a class="active item"><i href="manageQuestion.html" class="angle right icon"></i> 任务管理 </a>
+	    <a class="item"  href="../personInfo/personalInfo.html"><i class="angle right icon"></i>个人信息</a>
+		<a class="item"><i class="sign out icon"></i>注销账号</a>
+	</div>
+	
+	<!-- pusher-->
+	<div class="pusher" id="mypusher">
+		<!-- switch button-->
+
+		<button class="ui icon button" onclick="switch_button()">
+	        <i class="align justify icon" onclick="switch_button()"></i> </button>
+		
+		<div id="back-image"></div>
+		<!-- main page-->
+		<div id="release-task">
+			<h1 id="myheader"> Hello {{ name }} ! </h1>
+			<h3> 你想管理哪种任务？ </h3>
+			<div id="pagebtn">
+				<div class="ui huge inverted blue button" id="pagebtn1" v-on:click="getWJ()"> 问卷任务 </div>
+				<div class="ui huge inverted blue button"  id="pagebtn2" v-on:click="getKD()"> 快递任务 </div>
+			</div>
+		</div>
+		
+		<div id="questionnaire-list" hidden>
+			<button class="ui basic icon button" onclick="return_button()">
+				<i class="reply icon"></i>
+			</button>
+
+			<div id="manageWJTop">
+			  	<div>			    
+       	       		<h5  id="manageWJ" align="left" style="float: left;width: 750px;">问卷管理</h5>  
+       	   		</div>
+       	   		<div>
+       	   			<a align="right" class="ui inverted blue button" href="../createWJ/createWJ.html">新建问卷</a>
+       	   		</div>
+           	</div>
+
+           	
+			<div >
+					<div  id="fabu_list">
+						<ul id="ul_fabu_list" style="width: 900px; height: 350px;">
+							<li
+								is="ul_item"
+								v-for="(question, index) in fabu_questions"
+								v-bind:key="question.id"
+								v-bind:title="question.title"
+								v-bind:author="question.author"
+								v-bind:deadline="question.deadline"
+								v-on:remove="fabu_questions.splice(index, 1),delete_fabu()"
+							></li>
+						</ul>
+					</div>
+					<div id="jieshou_list" hidden>
+						<ul id="ul_jieshou_list" style="width: 900px; height: 350px;">
+							<li
+								is="jieshou_item"
+								v-for="(question, index) in jieshou_questions"
+								v-bind:key="question.id"
+								v-bind:title="question.title"
+								v-bind:author="question.author"
+								v-bind:deadline="question.deadline"
+								v-on:remove="jieshou_questions.splice(index, 1),delete_jieshou()"
+							></li>
+						</ul>
+					</div>
+
+					<div id="pages" style="width: 550px;">
+						<div id="pagination" class="ui borderless menu" align="left"></div>
+					</div>
+					<div id="double_btn">
+           				<div class="ui buttons" align="right">
+    	               		<button v-bind:class="{'ui':isA, 'positive':isB, 'button':isC}" v-on:click="has_published()" id="fabu">已发布</button>
+	    	               	<div class="or"></div>
+		               		<button v-bind:class="{'ui':isA, 'positive':isD, 'button':isC}" v-on:click="has_received()" id="jieshou">已接受</button>
+		           		</div>  
+    		     	</div>
+			</div>
+
+		</div>		
+		
+	</div>
+
+	
+	<script src="manageQuestion.js"></script>
+	<script src="../js/axios.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Little Mister</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="page_1.css" >
+    <link rel="stylesheet" type="text/css" href="expressDetail.css" >
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/semantic.js"></script>
+</head>
+<body>
+    
+    <!-- Sidebar Menu -->
+    <div class="ui left sidebar inverted vertical visible uncover menu">
+        <h1 class="ui header blue" id="menu-name">Little Mister</h1>
+        <!--<a class="item" onclick="switch_button()"><i class="align justify icon"></i>收起</a>-->
+        <a class="item" href="../page_1/page_1.html"><i class="angle right icon"></i> 发布任务 </a>
+        <a class="item" href="../getQuestion/getQuestion.html"><i class="angle right  icon"></i> 领取任务 </a>
+        <a class="item"><i class="angle right icon"></i> 问卷管理 </a>
+        <a class="item" href="../personInfo/personalInfo.html"><i class="angle right icon"></i>个人信息</a>
+        <a class="item" href="../index/index.html"><i class="sign out icon"></i>注销账号</a>
+    </div>
+    
+    <!-- pusher-->
+    <div class="pusher" id="mypusher" >
+        
+        <!-- switch button-->
+
+        <button class="ui icon button" onclick="switch_button()">
+            <i class="align justify icon" onclick="switch_button()"></i> 
+        </button>
+        <div id="back-image"></div>
+        <!--<div onclick="switch_button()"><i class="align justify icon"></i></div>-->
+        <!-- <button class="ui primary button" onclick="switch_button()"> switch </button>-->
+        <!-- main page-->
+        <div id="box">
+            
+            <button class="ui basic icon button" href="#" onClick="javascript :history.back(-1);" style="margin-left: 5%;">
+                <i class="reply icon"></i>
+            </button>
+            <div id="personalInfo">
+                <form class="ui form" id="all_info">
+                    <div id="seven_item"> 
+                        <hr/> 
+                        <h5  id="info_header">快递信息</h5>     
+                        <hr/>  
+                        <div style="height: 200px;">    
+                            <div class="field" id="items">
+                                <div class="two fields">
+                                    <div class="field">
+                                        <div class="field" id="user_name">联系人：{{name}}</div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field">电话：{{phone}}</div>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="field" id="items">
+                                <div class="two fields">
+                                    <div class="field">
+                                        <div class="field">报酬：{{money}}</div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field">截止日期：{{deadline}}</div>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="field" id="items">
+                                <div class="two fields">
+                                    <div class="field">
+                                        <div class="field">领取地址：{{getAddress}}</div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="field">送达地址：{{postAddress}}</div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="field" id="items">
+                                <div class="field" id="info">物品描述：{{info}}</div>       
+                            </div>
+                            <div class="ui inverted blue button" id="changeInfoBtn" v-on:click="confirm_receipt($event)">确认收货</div>
+                        </div>           
+                    </div>
+                </form>
+            </div>    
+
+        </div>
+    </div>
+
+    <script src="../page_1/page_1.js"></script>
+    <script src="expressDetail.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
