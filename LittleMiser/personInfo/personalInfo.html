@@ -3,7 +3,6 @@
     <meta charset="UTF-8">
     <title>Little Mister</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="page_1.css" >
     <link rel="stylesheet" type="text/css" href="personalInfo.css" >
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="../js/jquery.min.js"></script>
@@ -17,7 +16,7 @@
         <!--<a class="item" onclick="switch_button()"><i class="align justify icon"></i>收起</a>-->
         <a class="item" href="../page_1/page_1.html"><i class="angle right icon"></i> 发布任务 </a>
         <a class="item" href="../getQuestion/getQuestion.html"><i class="angle right  icon"></i> 领取任务 </a>
-        <a class="item" href="../manageQuestion/manageQuestion.html"><i class="angle right icon"></i> 问卷管理 </a>
+        <a class="item" href="../manageQuestion/manageQuestion.html"><i class="angle right icon"></i> 任务管理 </a>
         <a class="active item" href="personalInfo.html"><i class="angle right icon"></i>个人信息</a>
         <a class="item" href="../index/index.html"><i class="sign out icon"></i>注销账号</a>
     </div>
@@ -35,78 +34,130 @@
         <!-- <button class="ui primary button" onclick="switch_button()"> switch </button>-->
         <!-- main page-->
         <div id="box">
-            <div id="personalInfo">
-                <form class="ui form" id="all_info">
-                    <div id="seven_item"> 
-                        <hr/> 
-                        <h5  id="info_header">个人信息</h5>     
-                        <hr/>   
-                        <div style="height: 200px;">    
+            <div class="ui form" id="all_info">
+                    <div id="seven_item">
+                        <hr/>
+                        <h5  id="info_header">个人信息</h5>
+                        <hr/>
+                        <div style="height: 220px;">
                             <div class="field" id="items">
                                 <div class="two fields">
                                     <div class="field">
-                                        <div class="field" id="user_name">用户名：name</div>
+                                        <div class="field" id="user_name">昵称：{{user_name}}</div>
                                     </div>
                                     <div class="field">
-                                        <div class="field">邮箱：123456@qq.com</div>
+                                        <div class="field">账户余额：{{money}}</div>
                                     </div>
                                 </div>
                             </div>  
+
                             <div class="field" id="items">
                                 <div class="two fields">
                                     <div class="field">
-                                        <div class="field">姓名：赵钱孙李</div>
+                                        <div class="field">姓名：{{real_name}}</div>
                                     </div>
                                     <div class="field">
-                                        <div class="field">学号：16340000</div>
+                                        <div class="field">学号：{{number}}</div>
                                     </div>
                                 </div>
                             </div>  
+
                             <div class="field" id="items">
                                 <div class="two fields">
                                     <div class="field">
-                                        <div class="field">年龄：20</div>
+                                        <div class="field">年龄：{{age}}</div>
                                     </div>
                                     <div class="field">
-                                        <div class="field">性别：女</div>
+                                        <div class="field">性别：{{gender}}</div>
                                     </div>
                                 </div>
                             </div> 
+
                             <div class="field" id="items">
                                 <div class="two fields">
                                     <div class="field">
-                                        <div class="field">年级：2016级</div>
+                                        <div class="field">年级：{{grade}}</div>
                                     </div>
                                     <div class="field">
-                                        <div class="field">专业：软件工程</div>
+                                        <div class="field">专业：{{major}}</div>
                                     </div>
                                 </div>
-                            </div>          
-                            <div class="field" id="intro">简介：abcdefg,hijklmn,opq,rs,uvwxyz!!!abcdefg,hijklmn,opq,rs,uvwxyz!!!</div>      
-                        </div>           
-                        <a class="ui inverted blue button" onclick="changePersonalInfo()" id="changeInfoBtn" >修改个人信息</a>
+                            </div>
+
+                            <div class="field" id="intro">简介：{{intro}}</div>
+                        </div>
+
+                        <div class="ui inverted blue button" v-on:click="changePersonalInfo()" id="changeInfoBtn" >修改个人信息</div>
                     </div>
+
+                    <form id="change_pass" class="ui form" hidden>
+                        <hr/>
+                        <h5 >修改密码</h5>
+                        <hr/>
+                        <div style="height: 220px;margin-left: 5%;" >
+                            <div class="field" >
+                                <label for="inputAccount" class="sr-only" style="font-size:17px">当前密码</label>
+                                <input type="password" id="currPasswd" placeholder="当前密码" name="currPasswd" v-model="oldPasswd"   class="form-control" required="required" autofocus/><br/>
+                            </div>
+                            <div class="field">
+                                <label for="newPasswd" class="sr-only" style="font-size:17px">新密码</label>
+                                <input type="password" id="newPassword" placeholder="新密码" name="newPasswd" v-model="newPasswd" @keyup="checkPassword()" class="form-control" required/><br/>
+                                <P>{{passwordMsg}}</P>
+                            </div>
+                            <div class="field">
+                                <label for="repeatPasswd" class="sr-only" style="font-size:17px">确认密码</label>
+                                <input type="password" id="repeatPasswd" placeholder="确认密码" name="repeatPasswd" v-model="confirmPasswd" class="form-control" required/><br/>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form id="change_info" class="ui form" hidden>
+                        <hr/>
+                        <h5>修改个人信息</h5>
+                        <hr/>
+                        <div style="height: 220px;">
+                            <div class="field" id="items">
+                                <div class="two fields">
+                                    <div class="field">
+                                        <label for="userName" class="sr-only" style="font-size:15px">昵称</label>
+                                        <input type="text" id="nicknamed" class="form-control" name="nicknamed" v-model="new_name" ><br/>
+                                    </div>
+                                    <div class="field">
+                                        <label for="email" class="sr-only" style="font-size:15px">年龄</label>
+                                        <input type="text" id="email" class="form-control" name="email" v-model="new_age"/><br/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field" id="items">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label for="grade" class="sr-only" style="font-size:15px">年级</label>
+                                    <input type="text" id="grade" class="form-control" name="grade" v-model="new_grade"/><br/>
+                                </div>
+                                <div class="field">
+                                    <label for="major" class="sr-only" style="font-size:15px">专业</label>
+                                    <input type="text" id="major" class="form-control" name="major" v-model="new_major"/><br/>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="field" id="intro">
+                            <label for="introduction" class="sr-only" style="font-size:15px">简介</label>
+                            <input type="text" id="introduction" class="form-control" name="introduction " v-model="new_intro"/><br/>
+                            </div>
+                        </div>
+                    </form>
 
                     <div id="double_btn" align="center">
                         <div class="ui buttons" >
-                            <button class="ui button" onclick="changePasswd()">修改密码</button>
+                            <button class="ui button" v-on:click="left_button_click()">{{left_button}}</button>
                             <div class="or"></div>
-                            <button class="ui positive button" onclick="personalInfo()">个人信息</button>
-                        </div>  
+                            <button class="ui positive button" v-on:click="right_button_click()">{{right_button}}</button>
+                        </div>
                     </div>
-                </form>
-            </div>    
+            </div>
         </div>
     </div>
 
-    <script src="../page_1/page_1.js"></script>
     <script src="personalInfo.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
