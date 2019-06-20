@@ -1,9 +1,19 @@
+
 #back-image {
-	background-image: url("../image/bg02.gif");
-	background-size: cover;
+    background-image: url("../image/bg02.gif");
+    background-size: 50%;
+    margin-left: 16%;
     background-repeat: no-repeat;
     position: fixed;
     width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+body{
+    margin : 0;
+    height: 100%;
+}
+body > .grid {
     height: 100%;
 }
 #box {
@@ -17,29 +27,11 @@
 	margin-left:8%; 
 	margin-top: 5%;
 }
-#change_pass {
-	background-color:#FFFFFF;
-	width:800px;
-	height:380px; 
-	margin-left:8%; 
-	margin-top: 5%;
-}
-#change_info {
-	background-color:#FFFFFF;
-	width:800px;
-	height:380px; 
-	margin-left:8%; 
-	margin-top: 5%;
-}
-#seven_item {
+
+#seven_item, #change_pass,#change_info {
 	margin:5%;
 }
-#change_passwd {
-	margin:5%;
-}
-#change_information {
-	margin:3%;
-}
+
 h5 {
 	font-size: 20px;
 }
@@ -51,19 +43,10 @@ h5 {
 	float: right;
 }
 #double_btn {
-	margin-top: 5%;
+	margin-top: 3%;
 }
-#double_btn2 {
-	margin-top: 5%;
-	margin-left: -4%;
-}
-#double_btn3 {
-	margin-top: -2%;
-	margin-left: -3%;
-}
-.field {
-	margin-top: 2%;
-}
+
+
 form {
 	margin-top: 3%;
 }
