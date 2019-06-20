@@ -61,6 +61,8 @@ var per = new Vue({
             $('#change_pass').hide();
             $('#change_info').hide();
             $('#seven_item').show();
+            $('#button_left').removeClass('positive');
+            $('#button_right').addClass('positive');
             this.right_button = '个人信息';
             this.left_button = '修改密码';
         },
@@ -75,6 +77,7 @@ var per = new Vue({
             this.new_grade = this.grade;
             this.new_major = this.major;
             this.new_intro = this.intro;
+            changePositive();
         },
         changePasswd:function() {
             $('#change_pass').show();
@@ -85,6 +88,7 @@ var per = new Vue({
             this.oldPasswd = '';
             this.newPasswd = '';
             this.confirmPasswd = '';
+            changePositive();
         },
         submit_changePasswd:function() {
             if(this.oldPasswd == this.correctPasswd) {
@@ -151,4 +155,9 @@ var per = new Vue({
         }
     }
 });
+
+function changePositive() {
+    $('#button_left').addClass('positive');
+    $('#button_right').removeClass('positive');
+}
 
