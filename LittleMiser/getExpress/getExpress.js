@@ -1,23 +1,21 @@
 $(document).ready(function(){
   var data = {};
-  // 读取JSON数据，存入expresses数组中
-  axios.get('http://localhost:1998/getExpress/get.json')
-    .then(res => {
-      data = res.data;
-      console.log(data[0].contact);
-      for(var i = 0; i < data.length; i++) {
-        exp.expresses.push({
-          id: exp.nextExpressId++,
-          address: data[i].delivery_address,
-          author: data[i].contact,
-          deadline: data[i].due_date,
-          money: data[i].payment
-        });
-      };
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  axios.post('/getExpress/get')
+  .then(res => {
+    data = res.data;
+    for(var i = 0; i < data.length; i++) {
+      exp.expresses.push({
+        id: exp.nextExpressId++,
+        address: data[i].delivery_address,
+        author: data[i].contact,
+        deadline: data[i].due_date,
+        money: data[i].payment
+      });
+    };
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
   divedePage(1);
 });
 
@@ -55,16 +53,35 @@ var exp = new Vue({
     nextExpressId: 1
   },
   methods: {
+    // 根据地址查询并显示快递
     searchExpress: function () {
-      this.expresses.push({
-        id: this.nextExpressId++,
-        address: this.newExpressText,
-        author: 'xxx',
-        deadline: 'xxxx-xx-xx',
-        money: '$0.0'
-      });
+      var data = {};
+      axios.post('/getExpress/get')
+        .then(res => {
+          data = res.data;
+          while (this.expresses.length) {
+            this.expresses.pop();
+          }
+          for(var i = 0; i < data.length; i++) {
+            console.log(this.location, data[i].location, data[i].delivery_address);
+            if (this.location == data[i].location && this.newExpressText == data[i].delivery_address) {
+              this.expresses.push({
+                id: exp.nextExpressId++,
+                address: data[i].delivery_address,
+                author: data[i].contact,
+                deadline: data[i].due_date,
+                money: data[i].payment
+              })
+              console.log(this.expresses)
+            }
+          };
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
       setTimeout(function(){ divedePage(exp.expresses.length); }, 300);
-      this.newExpressText = '';
+      //this.newExpressText = '';
       console.log(this.location);
     }
   }

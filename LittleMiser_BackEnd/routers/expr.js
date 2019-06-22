@@ -13,17 +13,15 @@ router.get('/createExpress/createExpress.html',function(req,res){
 
 // 显示领取快递（信息）网页
 router.get('/getExpress/getExpress.html',function(req,res){
-    console.log('3')
     res.render('getExpress/getExpress.html')
 })
 
-// 读取数据库中快递数据，写入get.json文件
-router.get('/getExpress/get.json',function(req,res){
-    console.log('2');
+// 读取数据库中快递数据，写入get
+router.post('/getExpress/get',function(req,res){
     db.collection('expresses').find({}).toArray(function(err, response) {
-        console.log(response)
         res.send(response)
     });
+
 })
 
 // 数据库插入操作
