@@ -1,14 +1,13 @@
 $(document).ready(function(){
-  var _data = {};
+  var data_ = JSON.parse(localStorage.getItem("express"));
   //
-  detail.name = '张三';
-  detail.phone = '1234567';
-  detail.deadline = '2019-6-20';
-  detail.money = '3';
-  detail.getAddress = '菜鸟驿站';
-  detail.postAddress = '慎五';
-  detail.info = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz';
-
+  detail.name = data_.author;
+  detail.phone = data_.phone;
+  detail.deadline = data_.deadline;
+  detail.money = data_.money;
+  detail.getAddress = data_.getAddress;
+  detail.postAddress = data_.address;
+  detail.info = data_.info;
 });
 
 var detail = new Vue ({

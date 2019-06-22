@@ -103,7 +103,7 @@ var _publish = new Vue ({
           money: parseFloat(this.money),
           deadline: this.deadline,
           address: this.address,
-          getAdress: this.getAddress,
+          getAddress: this.getAddress,
           postAddress: this.postAddress,
           info: this.info
         };

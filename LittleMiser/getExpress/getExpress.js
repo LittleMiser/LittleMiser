@@ -9,7 +9,11 @@ $(document).ready(function(){
         address: data[i].delivery_address,
         author: data[i].contact,
         deadline: data[i].due_date,
-        money: data[i].payment
+        money: data[i].payment,
+        phone: data[i].phone,
+        getAddress: data[i].pickup_address,
+        loc: data[i].location,
+        info: data[i].description
       });
     };
   })
@@ -35,13 +39,26 @@ Vue.component('express-item', {
             报酬：{{ money }}\
           </div>\
         </div>\
-        <div class="ui bottom attached button" v-on:click="$emit(\'remove\')">\
+        <div class="ui bottom attached button" v-on:click="gotoDetail">\
           <i class="large briefcase icon"></i>\
           快递详情\
         </div>\
       </div>\
   ',
-  props: ['address', 'author', 'deadline', 'money']
+  props: ['id', 'address', 'author', 'deadline', 'money'],
+  methods: {
+    gotoDetail: function() {
+      
+      //window.location.href='../expressDetail/expressDetail.html';
+      for(var i = 0; i < exp.expresses.length; i++) {
+        if (this.id == exp.expresses[i].id) {
+          console.log(this.id);
+          localStorage.setItem("express", JSON.stringify(exp.expresses[i]))
+          window.location.href='../expressDetail/expressDetail.html';
+        }
+      }
+    }
+  }
 })
   
 var exp = new Vue({
@@ -70,7 +87,11 @@ var exp = new Vue({
                 address: data[i].delivery_address,
                 author: data[i].contact,
                 deadline: data[i].due_date,
-                money: data[i].payment
+                money: data[i].payment,
+                phone: data[i].phone,
+                getAddress: data[i].pickup_address,
+                loc: data[i].location,
+                info: data[i].description
               })
               console.log(this.expresses)
             }
@@ -214,3 +235,5 @@ function selecCountry(obj) {
   }
   console.log(exp.location);
 }
+
+

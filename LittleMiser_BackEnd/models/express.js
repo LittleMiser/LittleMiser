@@ -7,7 +7,7 @@ var ExpressSchema = new Schema({
     payment : Number,
     due_date : Date,
     location : String,
-    pick_up_address : String,
+    pickup_address : String,
     delivery_address : String,
     description : String
 })

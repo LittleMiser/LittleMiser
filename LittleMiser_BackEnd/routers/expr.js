@@ -33,7 +33,7 @@ function insert(name, phoneNum, pay, deadline, address, getAddress, postAddress,
         payment : pay,
         due_date : deadline,
         location: address,
-        pick_up_address: getAddress,
+        pickup_address: getAddress,
         delivery_address: postAddress,
         description: info
     });
