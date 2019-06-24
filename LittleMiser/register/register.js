@@ -86,12 +86,36 @@ var _register = new Vue ({
      
     },
     register:function (event) {
+
+
+
       if(this.checkUsername() && this.checkPassword() && this.checkNickname()
           && this.checkSnameNumber() && this.checkAge()){
-            alert("注册成功！");
-            $(".error").hide();
-            window.location.href='../index/index.html';
-      }else{
+
+          var data_ = { 
+            myIdentity: "student",
+            myContact: this.username,
+            myCode: this.password,
+            myNickName: this.nickname,
+            myName: this.sname,
+            myold: this.age,
+            myStudentNum: this.snumber,
+            mySex: this.selected,
+            myGrade: this.grade,
+            mymajor: this.major
+          };
+          // 通过axios获取数据
+          axios.post('/register/register.html', data_)
+            .then(resp => {
+              console.log(data_);
+            }).catch(err => {
+              console.log('请求失败：'+err.status+','+err.statusText);
+            });
+              alert("注册成功！");
+              $(".error").hide();
+              window.location.href='../index/index.html';     
+            }
+      else{
           this.errorMsg = "请填写正确的必填信息";
           $(".error").show();
           event.preventDefault();
