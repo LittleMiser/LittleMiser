@@ -1,22 +1,24 @@
 $(document).ready(function(){
-  var _data = {};
-  axios.post('/getQuestion/post_wj')
-    .then(res => {
-      console.log(res);
-      _data = res.data;
-      console.log(_data);
-      for(var i = 0; i < _data.length; i++) {
-        que.questions.push({
-          id: que.nextQuestionId++,
-          title: _data[i].title,
-          author: _data[i].author ||'zhangsan',
-          deadline: _data[i].deadline
-        });
-      };
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  console.log('this.newQuestionText',que.newQuestionText);
+  axios.post('/getQuestion/search_title', {data:que.newQuestionText})
+  .then(function (res) {
+    _data = res.data;
+    console.log(_data);
+    while(que.questions.length){
+      que.questions.pop();
+    }
+    for(var i = 0; i < _data.length; i++) {
+      que.questions.push({
+        id: que.nextQuestionId++,
+        title: _data[i].title,
+        author: _data[i].author ||'zhangsan',
+        deadline: _data[i].deadline
+      });
+    };
+  })
+  .catch(function (error) {
+  console.log(error);
+  });
   divedePage(1);
 });
 //问卷信息
@@ -49,18 +51,52 @@ var que = new Vue({
     nextQuestionId: 1
   },
   methods: {
+    
     searchQuestion: function () {
-      this.questions.push({
-        id: this.nextQuestionId++,
-        title: this.newQuestionText,
-        author: 'xxx',
-        deadline: 'xxxx-xx-xx'
+      console.log('this.newQuestionText',que.newQuestionText);
+      axios.post('/getQuestion/search_title', {data:que.newQuestionText})
+      .then(function (res) {
+        _data = res.data;
+        console.log(_data);
+        while (que.questions.length) {
+          que.questions.pop();
+        }
+        for(var i = 0; i < _data.length; i++) {
+          que.questions.push({
+            id: que.nextQuestionId++,
+            title: _data[i].title,
+            author: _data[i].author ||'zhangsan',
+            deadline: _data[i].deadline
+          });
+        }
       })
+      .catch(function (error) {
+      console.log(error);
+      });
       this.newQuestionText = '';
-      setTimeout(function(){ divedePage(que.questions.length); }, 10);
+      setTimeout(function(){ divedePage(que.questions.length); }, 100);
     }
   }
 })
+// function search() {
+//   console.log('this.newQuestionText',que.newQuestionText);
+//   axios.post('/getQuestion/search_title', {data:que.newQuestionText})
+//   .then(function (res) {
+//     _data = res.data;
+//     console.log(_data);
+//     for(var i = 0; i < _data.length; i++) {
+//       que.questions.push({
+//         id: que.nextQuestionId++,
+//         title: _data[i].title,
+//         author: _data[i].author ||'zhangsan',
+//         deadline: _data[i].deadline
+//       });
+//     };
+//   })
+//   .catch(function (error) {
+//   console.log(error);
+//   });
+// }
 
 var app = new Vue({ 
   el: '#myheader',

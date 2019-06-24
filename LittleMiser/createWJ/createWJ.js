@@ -55,7 +55,7 @@ function fabu() {
 
 	var _data = { 
 		//creator: 'zhangsan',
-		title: vm.wjtitle, 
+		title: $('#wjtitle').val(), 
 		questions: vm.questionMix,
 		answer: {},
 		deadline: $('#timeInput').val()
