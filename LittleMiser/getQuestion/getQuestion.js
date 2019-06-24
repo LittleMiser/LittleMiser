@@ -9,8 +9,10 @@ $(document).ready(function(){
     }
     for(var i = 0; i < _data.length; i++) {
       que.questions.push({
+        ID: _data[i]._id,
         id: que.nextQuestionId++,
         title: _data[i].title,
+        questionSet: _data[i].questions,
         author: _data[i].author ||'zhangsan',
         deadline: _data[i].deadline
       });
@@ -34,13 +36,24 @@ Vue.component('question-item', {
             <span class="date">截止日期：{{ deadline }}</span>\
           </div>\
         </div>\
-        <div class="ui bottom attached button" v-on:click="$emit(\'remove\')">\
+        <div class="ui bottom attached button" v-on:click="gotoWJ">\
           <i class="large edit icon"></i>\
           填写问卷\
         </div>\
       </div>\
   ',
-  props: ['title', 'author', 'deadline']
+  props: ['id', 'title', 'author', 'deadline'],
+  methods: {
+    gotoWJ: function() {
+      for(var i = 0; i < que.questions.length; i++) {
+        if (this.id == que.questions[i].id) {
+          console.log(this.id);
+          localStorage.setItem("paper", JSON.stringify(que.questions[i]))
+          window.location.href='../WJinfo/WJinfo.html';
+        }
+      }
+    }
+  }
 })
   
 var que = new Vue({
@@ -63,9 +76,11 @@ var que = new Vue({
         }
         for(var i = 0; i < _data.length; i++) {
           que.questions.push({
+            ID: _data[i]._id,
             id: que.nextQuestionId++,
             title: _data[i].title,
             author: _data[i].author ||'zhangsan',
+            questionSet: _data[i].questions,
             deadline: _data[i].deadline
           });
         }

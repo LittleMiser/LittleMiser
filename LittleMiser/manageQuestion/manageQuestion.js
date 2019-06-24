@@ -112,7 +112,29 @@ var que = new Vue({
       this.isFabu = true;
       if(this.first_fabu) {
 
-
+        // axios.post('/manageQuestion/search_author', {author: 'zhangsan'})
+        // .then(function (res) {
+        //   _data = res.data;
+        //   console.log(_data);
+        //   while(que.fabu_questions.length){
+        //     que.fabu_questions.pop();
+        //   }
+        //   for(var i = 0; i < _data.length; i++) {
+        //     que.jieshou_questions.push({
+        //       ID: _data[i]._id,
+        //       id: que.jieshou_nextQuestionId++,
+        //       title: _data[i].title,
+        //       questionSet: _data[i].questions,
+        //       answerSet: _data[i].answer,
+        //       author: _data[i].author ||'zhangsan',
+        //       deadline: _data[i].deadline
+        //     });
+        //     $('.dropdown').dropdown();
+        //   };
+        // })
+        // .catch(function (error) {
+        // console.log(error);
+        // });
 
 
       //显示当前用户已发布的问卷

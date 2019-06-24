@@ -1,4 +1,17 @@
-
+$(document).ready(function(){
+  var data_ = JSON.parse(localStorage.getItem("paper"));
+  console.log(data_);
+  
+  vm.id = data_.ID;
+  vm.wjtitle = data_.title;
+  for(var i=0;i<data_.questionSet.length;i++){
+    vm.title_list.push(data_.questionSet[i].title);
+    vm.questiontype.push(data_.questionSet[i].qtype);
+    vm.a_list.push(data_.questionSet[i].ans_a);
+    vm.b_list.push(data_.questionSet[i].ans_b);
+    vm.c_list.push(data_.questionSet[i].ans_c);
+  }
+});
 Vue.component('single', {
     props: ['id','title','a','b','c'],
     template: '\
@@ -26,6 +39,7 @@ Vue.component('single', {
               </div>\
             <div class="ui divider"></div>\
             </div>'
+
 })
 
 
@@ -74,18 +88,14 @@ vm = new Vue(
 {
     el:'#area',
     data:{
-        wjtitle:'问卷调查',
-        title_list:['今天星期一','今天星期二','今天星期三','今天星期四','今天星期五'],
-        questiontype:[0,0,1,2,1],
-        a_list:[
-        'e','e1','e2','','ee'
-        ],
-        b_list:[
-         'e','e1','e2','','ee'
-        ],
-        c_list:[
-         'e','e1','e2','','ee'
-        ]
+        id: 0,
+        wjtitle:'',
+        title_list:[],
+        questiontype:[],
+        a_list:[],
+        b_list:[],
+        c_list:[],
+        answer:[]
     }
 });
 
@@ -119,9 +129,9 @@ function finish(){
       for(j = 0;j < ob.length;j++){
         //获得每个选项的选中情况 true/false
         console.log(j+","+ob[j].checked);
-
+        
       }
-      
+      vm.answer.push({ans_a:ob[0].checked,ans_b:ob[1].checked,ans_c:ob[2].checked});
     }
     // 提取多选题的答案
     if(vm.questiontype[i] == 1){
@@ -132,14 +142,24 @@ function finish(){
         console.log(j+","+ob[j].checked);
 
       }
+      vm.answer.push({ans_a:ob[0].checked,ans_b:ob[1].checked,ans_c:ob[2].checked});
     }
     // 提取问答题的答案
     if(vm.questiontype[i] == 2){
       console.log("第"+i+"题:问答");
       ans =  $('#'+i).val();
       console.log(ans);
+      vm.answer.push({ans_a:ans});
     }
   }
+  console.log(vm.answer);
+  axios.post('/WJinfo/fill_in', {id:vm.id,ans:vm.answer})
+	  .then(function (response) {
+		console.log(response);
+	  })
+	  .catch(function (error) {
+		console.log(error);
+	  });
   //跳转到第一页
-  //window.location.href='../page_1/page_1.html'
+  window.location.href='../page_1/page_1.html'
 }

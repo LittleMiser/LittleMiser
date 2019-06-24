@@ -50,7 +50,7 @@
 						<input class="prompt" 
 							v-model="newQuestionText"
 							id="new-question"
-							placeholder="搜索">
+							placeholder="search title">
 						<i class="search icon"></i>
 					</div>
 					<button class="circular ui button">搜索</button>
@@ -61,7 +61,7 @@
 				<div
 					is="question-item"
 					v-for="(question, index) in questions"
-					v-bind:key="question.id"
+					v-bind:id="question.id"
 					v-bind:title="question.title"
 					v-bind:author="question.author"
 					v-bind:deadline="question.deadline"

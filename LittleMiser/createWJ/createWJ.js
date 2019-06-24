@@ -8,6 +8,7 @@ var vm = new Vue(
     	//问卷类型
     	questiontype:[],
 		questionMix:[],
+		answerMix:[],
 		//问题题目以及选项，文本题为“”空
         title_list:[
         ],
@@ -57,7 +58,7 @@ function fabu() {
 		//creator: 'zhangsan',
 		title: $('#wjtitle').val(), 
 		questions: vm.questionMix,
-		answer: {},
+		answer: vm.answerMix,
 		deadline: $('#timeInput').val()
 	  };
 	  console.log(_data);
@@ -126,9 +127,10 @@ function selectSingle() {
 			+"<div class='delbtn' onclick='deletethis(this)' id ='"+ vm.questionlist.length +"'>删除</div>";
 			//push进列表
 			vm.questionlist.push(que);
-			console.log('vm.questionmix');
 			vm.questionMix.push({title:mytext, ans_a:singlea,ans_b:singleb,ans_c:singlec,qtype:0});  
-			console.log(vm.questionMix);
+			vm.answerMix.push({ans_a:0,ans_b:0,ans_c:0});
+			console.log('question: \n',vm.questionMix);
+			console.log('answer: \n', vm.answerMix);
 			//显示
 			var ans = "";
       for (var i = 0; i <= vm.questionlist.length - 1; i++) {
@@ -187,7 +189,8 @@ function selectMuti(){
 			+"<div class='delbtn' onclick='deletethis(this)' id ='"+ vm.questionlist.length +"'>删除</div>";
 			//push进列表
 			vm.questionlist.push(que); 
-			vm.questionMix.push({title:mytext, ans_a:mutia,ans_b:mutib,ans_c:mutic,qtype:1});   
+			vm.questionMix.push({title:mytext, ans_a:mutia,ans_b:mutib,ans_c:mutic,qtype:1});  
+			vm.answerMix.push({ans_a:0,ans_b:0,ans_c:0}); 
 			//显示
 			var ans = "";
       for (var i = 0; i <= vm.questionlist.length - 1; i++) {
@@ -222,6 +225,7 @@ function selectWenda(){
 	//push进列表
 			vm.questionlist.push(que);  
 			vm.questionMix.push({title:mytext,qtype:2});  
+			vm.answerMix.push({ans: []});
 			//显示
 			var ans = "";
       for (var i = 0; i <= vm.questionlist.length - 1; i++) {

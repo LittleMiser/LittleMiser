@@ -3,6 +3,8 @@ var app = express();
 var expr = require('./LittleMiser_BackEnd/routers/expr');
 var createPaper = require('./LittleMiser_BackEnd/routers/createPaper');
 var getPaperInfo = require('./LittleMiser_BackEnd/routers/getPaperInfo');
+var fillPaper = require('./LittleMiser_BackEnd/routers/fillPaper');
+var managePaper = require('./LittleMiser_BackEnd/routers/managePaper');
 const ejs = require('ejs');
 
 var bodyParser = require('body-parser');
@@ -16,6 +18,8 @@ app.set('view engine','html');
 
 app.use('/createWJ', createPaper);
 app.use('/getQuestion', getPaperInfo);
+app.use('/WJinfo', fillPaper);
+app.use('/manageQuestion', managePaper);
 app.use('/', expr);
 app.use(express.static(__dirname + '/LittleMiser'));
 
