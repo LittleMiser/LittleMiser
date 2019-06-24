@@ -18,7 +18,7 @@ function switch_button() {
         },
         onShow: function() {
             $('.ui.sidebar').css("z-index",999);
-            $('#mypusher').css("width","80%");
+           $('#mypusher').css("width","85%");
         },
         onHide: function() {
             $('.ui.sidebar').css("z-index",1);

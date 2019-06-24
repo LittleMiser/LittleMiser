@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Little Mister</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="WJinfo.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/semantic.js"></script>
+	
+</head>
+<body>
+	
+
+	<!-- Sidebar Menu -->
+	<div class="ui left sidebar inverted vertical visible uncover menu">
+		<h1 class="ui header blue" id="menu-name">Little Mister</h1>
+		<!--<a class="item" onclick="switch_button()"><i class="align justify icon"></i>收起</a>-->
+	    <a class="active item" href="../page_1/page_1.html"><i class="angle right icon"></i> 发布任务 </a>
+	    <a class="item" href="../getQuestion/getQuestion.html"><i class="angle right  icon"></i> 领取任务 </a>
+	    <a class="item" ><i class="angle right icon"></i> 问卷管理 </a>
+	    <a class="item"  href="../personInfo/personalInfo.html"><i class="angle right icon"></i>个人信息</a>
+		<a class="item"><i class="sign out icon"></i>注销账号</a>
+	</div>
+	
+	<!-- pusher-->
+	<div class="pusher" id="mypusher">
+		<!-- switch button-->
+		<button class="ui icon button" onclick="switch_button()">
+	        <i class="align justify icon" onclick="switch_button()"></i> </button>
+	<!-- pusher -->	
+	<!--</div>-->
+	<div class="ui segment" id="form-container">
+		<!-- form -->
+
+	  <div class="ui fluid form" id="qus-list">
+	  	<div id="area">
+	  	<!-- title -->
+	  	<label id="wjtitle" >{{wjtitle}}</label>	
+	  	<div class="ui divider"></div>
+	  	<div 
+					is="single"
+					v-for="(type, index) in questiontype"
+					v-if="type==0"
+					v-bind:id="index"
+					v-bind:title="title_list[index]"
+					v-bind:a="a_list[index]"
+					v-bind:b="b_list[index]"
+					v-bind:c="c_list[index]"
+				></div>
+		<div 
+					is="double"
+					v-for="(type, index) in questiontype"
+					v-if="type==1"
+					v-bind:id="index"
+					v-bind:title="title_list[index]"
+					v-bind:a="a_list[index]"
+					v-bind:b="b_list[index]"
+					v-bind:c="c_list[index]"
+				></div>
+		<div 
+					is="wenda"
+					v-for="(type, index) in questiontype"
+					v-if="type==2"
+					v-bind:id="index"
+					v-bind:title="title_list[index]"
+				></div>
+
+
+		</div>	
+		
+	</div>
+			
+						
+	    <!-- button -->
+	    <div class="ui divider"></div>
+
+	    <div id="btn">
+	    	<button class="ui secondary submit button" onclick="finish()">完成问卷</button>
+	    </div>
+
+	  </div>
+	</div>
+<!-- pusher -->
+<!--</div>-->	
+</div>
+
+<script src="WJinfo.js" charset="utf-8"></script>
+
+
+</body>
+</body>
+</html>

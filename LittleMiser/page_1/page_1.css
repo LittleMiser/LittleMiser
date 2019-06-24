@@ -6,23 +6,19 @@ canvas {
 body {
   margin: 0;
   height: 100%;
-  background: #fff;
 }
 #menu-name {
 	text-align:center;
 	margin-top: 5%;
 }
 #mypusher {
-	/*
+
 	background-image: url("../image/bg02.gif");
-	background-repeat:no-repeat;
-	background-size: 50% 100%;
-	*/
-	
-	background-image: url("../image/bg.gif");
-	background-repeat:no-repeat;
-	background-position: 50% 70%;
-	width: 80%;
+	background-size: 60%;
+  	background-repeat: no-repeat;
+
+	width: 85%;
+    height: 100%;
 	/*
 	background-image: url("../image/homepage.jpeg");
 	background-repeat:no-repeat;

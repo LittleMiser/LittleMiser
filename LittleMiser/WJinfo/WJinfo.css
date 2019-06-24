@@ -1,0 +1,38 @@
+#mypusher {
+    width: 85%;
+}
+#area{
+	padding: 2%;
+}
+#form-container {
+	width: 60%;
+	margin-top: 1.5%;
+	margin-right: 20%;
+	margin-left: 20%;
+	background-image: url("../image/bg02.gif");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+#container {
+	width: 90%;
+	margin-left: 5%;
+	border-style: none;
+}
+#wjtitle{
+	border-width: 0;
+	font-size: x-large;
+	font-weight: bolder;
+}
+#btn {
+	text-align:center
+}
+#btn button {
+	margin-left: 5%;
+	margin-right: 5%;
+}
+.wendatitle {
+	font-weight: bold;
+}
+input {
+	
+}
