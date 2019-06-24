@@ -12,6 +12,7 @@ $(document).ready(function(){
     vm.c_list.push(data_.questionSet[i].ans_c);
   }
 });
+
 Vue.component('single', {
     props: ['id','title','a','b','c'],
     template: '\
@@ -106,11 +107,13 @@ function switch_button() {
         context: 'body',
         dimPage : false,
         onVisible: function() {
-            
+            $('body').click(function(e){
+                this.unbind(e);
+            });
         },
         onShow: function() {
             $('.ui.sidebar').css("z-index",999);
-            $('#mypusher').css("width","85%");
+           $('#mypusher').css("width","85%");
         },
         onHide: function() {
             $('.ui.sidebar').css("z-index",1);
