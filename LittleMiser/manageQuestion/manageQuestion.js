@@ -34,10 +34,11 @@ Vue.component('jieshou_item',  {
       <div class="item">\
         <div class="right floated content">\
           <div class="ui teal buttons">\
+	    <div class="ui button">{{finish_question}}</div>\
             <div class="ui top right pointing dropdown icon button">\
               <i class="dropdown icon"></i>\
               <div class="menu transition hidden">\
-                <a class="item" href="../statistics/statistics.html"><i class="eye icon"></i>查看统计</a>\
+                <div class="item" v-on:click="$emit(\'change_state\')"><i class="yen sign icon"></i>完成任务</div>\
                 <div class="item" v-on:click="$emit(\'remove\')"><i class="delete icon"></i>删除问卷</div>\
               </div>\
             </div>\
@@ -48,7 +49,7 @@ Vue.component('jieshou_item',  {
       <hr/>\
     </div>\
   ',
-  props: ['title','deadline']
+  props: ['title','deadline','finish_question']
 })
 
 
@@ -215,6 +216,16 @@ var que = new Vue({
     },
     delete_jieshou(){
       setTimeout(function(){ divedePage(que.jieshou_questions.length); }, 10);
+    },
+    change_state:function(index) {
+      
+      Vue.set(this.jieshou_questions[index],'finish_question','已完成');
+
+
+      //数据库修改状态为已完成
+      //算钱
+      //TODO
+      //
     }
   }
 })
@@ -281,4 +292,10 @@ function return_button(){
   $('#questionnaire-list').hide();
 }
 
-
+function first_load() {
+  var button_left = document.getElementById('fabu');
+  button_left.click();
+  var button_right = document.getElementById('jieshou');
+  button_right.click();
+  button_left.click();
+}
