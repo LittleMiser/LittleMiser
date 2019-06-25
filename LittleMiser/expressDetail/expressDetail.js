@@ -52,7 +52,7 @@ var detail = new Vue ({
             $(".error").hide();
         }
         else {
-          localStorage.setItem("deal", JSON.stringify(que.fabu_expresses[i]))
+          // Transaction
         }
       }
     }
