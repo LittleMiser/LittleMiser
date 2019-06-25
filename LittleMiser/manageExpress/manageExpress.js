@@ -2,8 +2,6 @@
   var data = {};
   // 读取JSON数据，存入expresses数组中
   que.has_published();
-
-
   divedePage(1);
 });
 
@@ -17,8 +15,8 @@ Vue.component('ul_item',  {
             <div class="ui top right pointing dropdown icon button">\
               <i class="dropdown icon"></i>\
               <div class="menu transition hidden">\
-                <a class="item" href="../expressDetail/expressDetail.html"><i class="eye icon"></i>查看详情</a>\
-                <div class="item" v-on:click="$emit(\'remove\')"><i class="delete icon"></i>删除任务</div>\
+                <a class="item" v-on:click="gotoDetail"><i class="eye icon"></i>查看详情</a>\
+                <div class="item" v-on:click="delete_fabu"><i class="delete icon"></i>删除任务</div>\
               </div>\
             </div>\
           </div>\
@@ -28,7 +26,34 @@ Vue.component('ul_item',  {
       <hr/>\
     </div>\
   ',
-  props: ['address','deadline']
+  props: ['id','address','deadline'],
+  methods: {
+    gotoDetail: function() {    
+      for(var i = 0; i < que.fabu_expresses.length; i++) {
+        if (this.id == que.fabu_expresses[i].id) {
+          //console.log(this.id);
+          localStorage.setItem("express", JSON.stringify(que.fabu_expresses[i]))
+          localStorage.setItem("page", JSON.stringify("confirmExpress"))
+          window.location.href='../expressDetail/expressDetail.html';
+        }
+      }
+    },
+    delete_fabu: function() {
+      setTimeout(function(){ divedePage(que.fabu_expresses.length); }, 10);
+        var data_ = { 
+          id: this.id
+        };
+        axios.post('/manageExpress/delete', data_)
+          .then(resp => {
+            console.log("YES");
+          }).catch(err => {
+            console.log('请求失败：'+err.status+','+err.statusText);
+          });
+            alert("发布成功！");
+            $(".error").hide();   
+      location.reload(); 
+    }
+  }
 })
 //不可删，只用一个component显示会冲突
 Vue.component('jieshou_item',  {
@@ -41,9 +66,9 @@ Vue.component('jieshou_item',  {
             <div class="ui top right pointing dropdown icon button">\
               <i class="dropdown icon"></i>\
               <div class="menu transition hidden">\
-                <a class="item" href="../expressDetail/expressDetail.html"><i class="eye icon"></i>查看详情</a>\
-                <div class="item" v-on:click="$emit(\'remove\')"><i class="delete icon"></i>取消任务</div>\
-                <div class="item" v-on:click="$emit(\'change_state\')"><i class="yen sign icon"></i>完成任务</div>\
+                <a class="item" v-on:click="gotoDetail"><i class="eye icon"></i>查看详情</a>\
+                <div class="item" v-on:click="delete_jieshou"><i class="delete icon"></i>取消任务</div>\
+                <div class="item" v-on:click="change_state"><i class="yen sign icon"></i>完成任务</div>\
               </div>\
             </div>\
           </div>\
@@ -53,7 +78,58 @@ Vue.component('jieshou_item',  {
       <hr/>\
     </div>\
   ',
-  props: ['address','deadline','finish_express']
+  props: ['id','address','deadline','finish_express'],
+  methods: {
+    gotoDetail: function() {    
+      //window.location.href='../expressDetail/expressDetail.html';
+      for(var i = 0; i < que.jieshou_expresses.length; i++) {
+        if (this.id == que.jieshou_expresses[i].id) {
+          //console.log(this.id);
+          localStorage.setItem("express", JSON.stringify(que.jieshou_expresses[i]))
+          localStorage.setItem("page", JSON.stringify("confirmExpress"))
+          window.location.href='../expressDetail/expressDetail.html';
+        }
+      }
+    },
+    change_state: function() {
+      //this.finish_express = '已完成';
+      this.finish_express = '已完成';
+      //Vue.set(this.jieshou_expresses[index],'finish_express','已完成');
+      //      
+      // for(var i = 0; i < que.jieshou_expresses.length; i++) {
+      //   if (this.id == que.jieshou_expresses[i].id) {
+          //console.log(que.jieshou_expresses[i]);
+          var data_ = { 
+            id: this.id,
+            //isFinished: true
+          };
+          axios.post('/manageExpress/finish', data_)
+            .then(resp => {
+              console.log("YES");
+            }).catch(err => {
+              console.log('请求失败：'+err.status+','+err.statusText);
+            });
+              alert("发布成功！");
+              $(".error").hide();
+      //   }
+      // }
+    },
+    delete_jieshou: function(){
+      setTimeout(function(){ divedePage(que.jieshou_expresses.length); }, 10);
+      var data_ = { 
+        id: this.id
+      };
+      axios.post('/manageExpress/cancel', data_)
+        .then(resp => {
+          console.log("YES");
+        }).catch(err => {
+          console.log('请求失败：'+err.status+','+err.statusText);
+        });
+          alert("发布成功！");
+          $(".error").hide(); 
+      location.reload();   
+    }
+  }
 })
 
 
@@ -72,12 +148,11 @@ var que = new Vue({
     first_fabu:true,
     first_jieshou:true,
     isFabu:true,
-    finish_express :'未完成'
+    finish_express : ''
   },
   
 
   methods: {
-
     temp:function(num) {
       if(num == 1) {
         this.fabu_expresses.push({
@@ -99,26 +174,41 @@ var que = new Vue({
     },
     publish:function() {
       this.isFabu = true;
-      if(this.first_fabu) {
-
-
-
-
       //显示当前用户已发布的问卷
-      //search已发布,读取数据
-      //
-      for(var i = 0;i < 7 ;i++) {
-        this.fabu_expresses.push({
-          id: this.fabu_nextExpressId++,
-          address: 'fabupublish'+this.fabu_nextExpressId,
-          deadline: 'xxxx-xx-xx'+this.fabu_nextExpressId,
-          finish_express:'未完成'
+      if(this.first_fabu) {
+        var data = {};
+        axios.post('/getExpress/get')
+        .then(res => {
+          data = res.data;
+          for(var i = 0; i < data.length; i++) {
+            if (localStorage.getItem('username') == data[i].user) {
+              var str = '未完成';
+              if (data[i].isFinished) {
+                str = '已完成';
+              }
+              this.fabu_expresses.push({
+                id: data[i]._id,
+                address: data[i].delivery_address,
+                author: data[i].contact,
+                deadline: data[i].due_date,
+                money: data[i].payment,
+                phone: data[i].phone,
+                getAddress: data[i].pickup_address,
+                loc: data[i].location,
+                info: data[i].description,
+                isRecepted: data[i].isRecepted,
+                isFinished: data[i].isFinished,
+                recept_user: data[i].recept_user,
+                finish_express: str
+              });
+            }
+            $('.dropdown').dropdown(); //不可改
+          };
+        })
+        .catch(function (error) {
+          console.log(error);
         });
-        $('.dropdown').dropdown(); //不可改
-      };
-      //
-
-
+      //search已发布,读取数据
 
       this.first_fabu = false;  
       }else {
@@ -132,23 +222,42 @@ var que = new Vue({
     receive:function() {
       this.isFabu = false;
       if(this.first_jieshou){
-
-
-
       //显示当前用户已接受的问卷
       //search已接受问卷，读取数据
-      for(var j = 0;j <12;j++) {
-        this.jieshou_expresses.push({
-          id: this.jieshou_nextExpressId++,
-          address: 'jieshoureceive'+this.jieshou_nextExpressId,
-          deadline: 'xxxx-xx-xx'+this.jieshou_nextExpressId,
-          finish_express:'未完成'
+      var data = {};
+        axios.post('/getExpress/get')
+        .then(res => {
+          data = res.data;
+          for(var i = 0; i < data.length; i++) {
+            if (localStorage.getItem('username') == data[i].recept_user) {
+              //console.log(data[i]);
+              var str = '未完成';
+              if (data[i].isFinished) {
+                str = '已完成';
+              }
+              this.jieshou_expresses.push({
+                id: data[i]._id,
+                address: data[i].delivery_address,
+                author: data[i].contact,
+                deadline: data[i].due_date,
+                money: data[i].payment,
+                phone: data[i].phone,
+                getAddress: data[i].pickup_address,
+                loc: data[i].location,
+                info: data[i].description,
+                isRecepted: data[i].isRecepted,
+                isFinished: data[i].isFinished,
+                recept_user: data[i].recept_user,
+                finish_express: str
+              });
+            }
+            $('.dropdown').dropdown(); //不可改
+          };
+        })
+        .catch(function (error) {
+          console.log(error);
         });
-        $('.dropdown').dropdown();
-      };
       //
-
-
 
       this.first_jieshou = false;
       }else {
@@ -178,16 +287,6 @@ var que = new Vue({
           this.jieshou_nextExpressId--;
         }); 
       }); 
-    },
-    delete_fabu(){
-      setTimeout(function(){ divedePage(que.fabu_expresses.length); }, 10);
-    },
-    delete_jieshou(){
-      setTimeout(function(){ divedePage(que.jieshou_expresses.length); }, 10);
-    },
-    change_state:function(index) {
-      //this.finish_express = '已完成';
-      Vue.set(this.jieshou_expresses[index],'finish_express','已完成');
     }
   }
 })

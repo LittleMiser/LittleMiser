@@ -1,38 +1,3 @@
-// $(document).ready(function(){
-//   var data_ = JSON.parse(localStorage.getItem("statistics"));
-//   console.log(data_);
-//   tongji.title = data_.title;
-//   tongji.deadline = data_.deadline;
-//   for(var i = 0;i < data_.questionSet.length;i++){
-//     var qtype = '';
-//     if(data_.questionSet[i].qtype == 2){
-//       qtype = '文本';
-//       var ans = [];
-//       tongji.questions.push({
-//         id : i,
-//         topic : data_.questionSet[i].title,
-//         type : qtype,
-//         option : [],
-//         answers : ans
-//       });
-//     }else{
-//       if(data_.questionSet[i].qtype == 1){
-//         qtype = '多选';
-//       }else{
-//         qtype = '单选';
-//       }
-//       var ans = [];
-//       tongji.questions.push({
-//         id : i,
-//         topic : data_.questionSet[i].title,
-//         type : qtype,
-//         option : [data_.questionSet[i].ans_a,data_.questionSet[i].ans_b,data_.questionSet[i].ans_c],
-//         answers = ans
-//       })
-//     } 
-//   }
-// });
-
 Vue.component('question-item', {
   template: '\
     <div class="ui message">\
@@ -117,73 +82,40 @@ function drawChart(index, question){
   }
 }
 
-var tongji = new Vue({
+new Vue({
   el: '#results',
   data: {
     title : "问卷test",
     questions: [
-      // {
-      //   id: 1,
-      //   topic: 'Do the dishes',
-      //   type: '单选',
-      //   options: ['选项1', '选项2', '选项3'],
-      //   answers: [10, 20, 30]
-      // },
-      // {
-      //   id: 2,
-      //   topic: 'Take out the trash',
-      //   type: '多选',
-      //   options: ['选项3', '选项3', '选项2'],
-      //   answers: [10, 20, 30]
-      // },
-      // {
-      //   id: 3,
-      //   topic: 'Mow the lawn',
-      //   type: '文本',
-      //   options: [],
-      //   answers: ['aaaaaaaaaaa', 'bbbbbbbbb', 'cccccccccc']
-      // }
+      {
+        id: 1,
+        topic: 'Do the dishes',
+        type: '单选',
+        options: ['选项1', '选项2', '选项3'],
+        answers: [10, 20, 30]
+      },
+      {
+        id: 2,
+        topic: 'Take out the trash',
+        type: '多选',
+        options: ['选项3', '选项3', '选项2'],
+        answers: [10, 20, 30]
+      },
+      {
+        id: 3,
+        topic: 'Mow the lawn',
+        type: '文本',
+        options: [],
+        answers: ['aaaaaaaaaaa', 'bbbbbbbbb', 'cccccccccc']
+      }
     ],
     deadline: '2019.6.12'
   },
   mounted(){
-    var data_ = JSON.parse(localStorage.getItem("statistics"));
-    console.log(data_.questionSet);
-    this.title = data_.title;
-    this.deadline = data_.deadline;
-    for(var i = 0;i < data_.questionSet.length;i++){
-      var qtype = '';
-      var ans = [];
-      if(data_.questionSet[i].qtype == 2){
-        qtype = '文本';
-        var ans = [];
-        this.questions.push({
-          id : i,
-          topic : data_.questionSet[i].title,
-          type : qtype,
-          options : [],
-          answers : data_.answers[i].ans
-        });
-      }else{
-        if(data_.questionSet[i].qtype == 1){
-          qtype = '多选';
-        }else{
-          qtype = '单选';
-        }
-        this.questions.push({
-          id : i,
-          topic : data_.questionSet[i].title,
-          type : qtype,
-          options : [data_.questionSet[i].ans_a,data_.questionSet[i].ans_b,data_.questionSet[i].ans_c],
-          answers : [data_.answers[i].ans_a,data_.answers[i].ans_b,data_.answers[i].ans_c]
-        })
-      } 
-    } 
-
-    setTimeout(function(){for(var i = 0; i < tongji.questions.length; i++){
-      console.log(i,tongji.questions[i]);
-      drawChart(i, tongji.questions[i]);
-    }},100);
+    for(var i = 0; i < this.questions.length; i++){
+      console.log();
+      drawChart(i, this.questions[i]);
+    }
     
   }
   

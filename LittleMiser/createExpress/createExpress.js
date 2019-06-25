@@ -98,7 +98,10 @@ var _publish = new Vue ({
       console.log(this.deadline);
       if(this.checkName() && this.checkPhone() && this.checkMoney() 
       && this.checkAddress() && this.checkInfo()){
-        var data_ = { name: this.name, 
+        var username = localStorage.getItem("username");
+        var data_ = { 
+          user: username,
+          name: this.name, 
           phone: this.phone, 
           money: parseFloat(this.money),
           deadline: this.deadline,
