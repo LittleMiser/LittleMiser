@@ -4,18 +4,24 @@ $(document).ready(function(){
   .then(res => {
     data = res.data;
     for(var i = 0; i < data.length; i++) {
-      exp.expresses.push({
-        id: exp.nextExpressId++,
-        address: data[i].delivery_address,
-        author: data[i].contact,
-        deadline: data[i].due_date,
-        money: data[i].payment,
-        phone: data[i].phone,
-        getAddress: data[i].pickup_address,
-        loc: data[i].location,
-        info: data[i].description
-      });
+      if (!data[i].isRecepted) {
+        exp.expresses.push({
+          id: data[i]._id,
+          address: data[i].delivery_address,
+          author: data[i].contact,
+          deadline: data[i].due_date,
+          money: data[i].payment,
+          phone: data[i].phone,
+          getAddress: data[i].pickup_address,
+          loc: data[i].location,
+          info: data[i].description,
+          isRecepted: data[i].isRecepted,
+          isFinished: data[i].isFinished,
+          recept_user: data[i].recept_user
+        });
+      }
     };
+    console.log(exp.expresses[0]);
   })
   .catch(function (error) {
     console.log(error);
@@ -47,13 +53,13 @@ Vue.component('express-item', {
   ',
   props: ['id', 'address', 'author', 'deadline', 'money'],
   methods: {
-    gotoDetail: function() {
-      
+    gotoDetail: function() {      
       //window.location.href='../expressDetail/expressDetail.html';
       for(var i = 0; i < exp.expresses.length; i++) {
         if (this.id == exp.expresses[i].id) {
           console.log(this.id);
           localStorage.setItem("express", JSON.stringify(exp.expresses[i]))
+          localStorage.setItem("page", JSON.stringify("getExpress"))
           window.location.href='../expressDetail/expressDetail.html';
         }
       }
@@ -66,8 +72,7 @@ var exp = new Vue({
   data: {
     newExpressText: '',
     location: '',
-    expresses: [],
-    nextExpressId: 1
+    expresses: []
   },
   methods: {
     // 根据地址查询并显示快递
@@ -83,7 +88,7 @@ var exp = new Vue({
             console.log(this.location, data[i].location, data[i].delivery_address);
             if (this.location == data[i].location && this.newExpressText == data[i].delivery_address) {
               this.expresses.push({
-                id: exp.nextExpressId++,
+                id: data[i]._id,
                 address: data[i].delivery_address,
                 author: data[i].contact,
                 deadline: data[i].due_date,
@@ -91,7 +96,10 @@ var exp = new Vue({
                 phone: data[i].phone,
                 getAddress: data[i].pickup_address,
                 loc: data[i].location,
-                info: data[i].description
+                info: data[i].description,
+                isRecepted: data[i].isRecepted,
+                isFinished: data[i].isFinished,
+                recept_user: data[i].recept_user,
               })
               console.log(this.expresses)
             }

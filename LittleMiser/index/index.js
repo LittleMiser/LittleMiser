@@ -44,6 +44,8 @@ var _login = new Vue ({
                 this.errorMsg = "";
                 alert("登录成功！");
                 $(".error").hide();
+                localStorage.setItem("username", JSON.stringify(data_.myContact));
+                console.log(localStorage.getItem("username"));
                 window.location.href='../page_1/page_1.html';
             }
           }).catch(err => {

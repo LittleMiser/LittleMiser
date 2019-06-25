@@ -1,27 +1,3 @@
-// $(document).ready(function(){
-//   axios.post('/manageQuestion/search_author', {author: 'zhangsan'})
-//         .then(function (res) {
-//           _data = res.data;
-//           console.log(_data);
-//           while(que.jieshou_questions.length){
-//             que.jieshou_questions.pop();
-//           }
-//           for(var i = 0; i < _data.length; i++) {
-//             que.jieshou_questions.push({
-//               ID: _data[i]._id,
-//               id: que.jieshou_nextQuestionId++,
-//               title: _data[i].title,
-//               questionSet: _data[i].questions,
-//               author: _data[i].author ||'zhangsan',
-//               deadline: _data[i].deadline
-//             });
-//             $('.dropdown').dropdown();
-//           };
-//         })
-//         .catch(function (error) {
-//         console.log(error);
-//         }); 
-// });
 var app = new Vue({ 
   el: '#myheader',
   data: {
@@ -38,8 +14,8 @@ Vue.component('ul_item',  {
 						<div class="ui top right pointing dropdown icon button">\
     					<i class="dropdown icon"></i>\
     					<div class="menu transition hidden">\
-      					<a class="item" v-on:click="gotoTJ"><i class="eye icon"></i>查看统计</a>\
-                <div class="item" v-on:click="deleteWJ"><i class="delete icon"></i>删除问卷</div>\
+      					<a class="item" href="../statistics/statistics.html"><i class="eye icon"></i>查看统计</a>\
+                <div class="item" v-on:click="$emit(\'remove\')"><i class="delete icon"></i>删除问卷</div>\
     					</div>\
 						</div>\
 			   	</div>\
@@ -49,28 +25,7 @@ Vue.component('ul_item',  {
   	  <hr/>\
     </div>\
   ',
-  props: ['id','title','deadline'],
-  methods: {
-    gotoTJ: function() {
-
-        console.log('gotoTJ:',this.id);
-        localStorage.setItem("statistics", JSON.stringify(que.fabu_questions[this.id]));
-        console.log(localStorage.getItem("statistics"));
-       window.location.href='../statistics/statistics.html';
-    
-  },
-  deleteWJ: function(){
-    var deid = que.fabu_questions[this.id].ID;
-    console.log('delete id = ',deid);
-    axios.post('/manageQuestion/delete_wj', {id: deid})
-    .then(function (res) {
-      window.location.href='../manageQuestion/manageQuestion.html';
-    })
-    .catch(function (error) {
-    console.log(error);
-    });  
-  }
-}
+  props: ['title','deadline']
 })
 //不可删，只用一个component显示会冲突
 Vue.component('jieshou_item',  {
@@ -79,11 +34,10 @@ Vue.component('jieshou_item',  {
       <div class="item">\
         <div class="right floated content">\
           <div class="ui teal buttons">\
-            <div class="ui button">{{finish_question}}</div>\
             <div class="ui top right pointing dropdown icon button">\
               <i class="dropdown icon"></i>\
               <div class="menu transition hidden">\
-                <div class="item" v-on:click="$emit(\'change_state\')"><i class="yen sign icon"></i>完成任务</div>\
+                <a class="item" href="../statistics/statistics.html"><i class="eye icon"></i>查看统计</a>\
                 <div class="item" v-on:click="$emit(\'remove\')"><i class="delete icon"></i>删除问卷</div>\
               </div>\
             </div>\
@@ -94,8 +48,7 @@ Vue.component('jieshou_item',  {
       <hr/>\
     </div>\
   ',
-  props: ['title','deadline','finish_question']
-
+  props: ['title','deadline']
 })
 
 
@@ -103,11 +56,8 @@ Vue.component('jieshou_item',  {
 var que = new Vue({
   el: '#mypusher',
   data: {
-
     fabu_questions: [],
     jieshou_questions:[],
-    finish_question:'未完成',
-
     fabu_nextQuestionId: 0,
     jieshou_nextQuestionId:0,
     isA: true,
@@ -118,16 +68,14 @@ var que = new Vue({
     first_jieshou:true,
     isFabu:true
   },
-  /*
+  
   mounted:function() {
     this.$nextTick(function () {
      this.publish();
    })
   },
-  */
 
   methods: {
-
     getWJ:function() {
       $('#release-task').hide();
       $('#questionnaire-list').show();
@@ -148,16 +96,14 @@ var que = new Vue({
         this.fabu_questions.push({
           id: this.fabu_nextQuestionId++,
           title:'fabutemp'+this.fabu_nextQuestionId,
-          deadline: 'xxxx-xx-xx',
-          finish_question:'未完成'
+          deadline: 'xxxx-xx-xx'
         });
         $('.dropdown').dropdown();
       }else {
         this.jieshou_questions.push({
           id: this.jieshou_nextQuestionId++,
           title:'jieshoutemp'+this.jieshou_nextQuestionId,
-          deadline: 'xxxx-xx-xx',
-          finish_question:'未完成'
+          deadline: 'xxxx-xx-xx'
         });
         $('.dropdown').dropdown();
       }
@@ -165,42 +111,43 @@ var que = new Vue({
     publish:function() {
       this.isFabu = true;
       if(this.first_fabu) {
-        axios.post('/manageQuestion/search_author', {author: 'zhangsan'})
-        .then(function (res) {
-          _data = res.data;
-          console.log(_data);
-          while(que.fabu_questions.length){
-            que.fabu_questions.pop();
-          }
-          for(var i = 0; i < _data.length; i++) {
-            que.fabu_questions.push({
-              ID: _data[i]._id,
-              id: que.fabu_nextQuestionId++,
-              title: _data[i].title,
-              questionSet: _data[i].questions,
-              answers: _data[i].answer,
-              author: _data[i].author ||'zhangsan',
-              deadline: _data[i].deadline
-            });
-            $('.dropdown').dropdown();
-          };
-         // localStorage.setItem("statistics", JSON.stringify(que.fabu_questions));
-        })
-        .catch(function (error) {
-        console.log(error);
-        }); 
+
+        // axios.post('/manageQuestion/search_author', {author: 'zhangsan'})
+        // .then(function (res) {
+        //   _data = res.data;
+        //   console.log(_data);
+        //   while(que.fabu_questions.length){
+        //     que.fabu_questions.pop();
+        //   }
+        //   for(var i = 0; i < _data.length; i++) {
+        //     que.jieshou_questions.push({
+        //       ID: _data[i]._id,
+        //       id: que.jieshou_nextQuestionId++,
+        //       title: _data[i].title,
+        //       questionSet: _data[i].questions,
+        //       answerSet: _data[i].answer,
+        //       author: _data[i].author ||'zhangsan',
+        //       deadline: _data[i].deadline
+        //     });
+        //     $('.dropdown').dropdown();
+        //   };
+        // })
+        // .catch(function (error) {
+        // console.log(error);
+        // });
+
+
       //显示当前用户已发布的问卷
       //search已发布,读取数据
       //
-      // for(var i = 0;i < 7 ;i++) {
-      //   this.fabu_questions.push({
-      //     id: this.fabu_nextQuestionId++,
-      //     title: 'fabupublish'+this.fabu_nextQuestionId,
-      //     deadline: 'xxxx-xx-xx'+this.fabu_nextQuestionId,
-      //     finish_question:'未完成'
-      //   });
-      //   $('.dropdown').dropdown(); //不可改
-      // };
+      for(var i = 0;i < 7 ;i++) {
+        this.fabu_questions.push({
+          id: this.fabu_nextQuestionId++,
+          title: 'fabupublish'+this.fabu_nextQuestionId,
+          deadline: 'xxxx-xx-xx'+this.fabu_nextQuestionId
+        });
+        $('.dropdown').dropdown(); //不可改
+      };
       //
 
 
@@ -218,40 +165,18 @@ var que = new Vue({
       this.isFabu = false;
       if(this.first_jieshou){
 
-        axios.post('/manageQuestion/search_author', {author: 'zhangsan'})
-        .then(function (res) {
-          _data = res.data;
-          console.log(_data);
-          while(que.jieshou_questions.length){
-            que.jieshou_questions.pop();
-          }
-          for(var i = 0; i < _data.length; i++) {
-            que.jieshou_questions.push({
-              ID: _data[i]._id,
-              id: que.jieshou_nextQuestionId++,
-              title: _data[i].title,
-              questionSet: _data[i].questions,
-              author: _data[i].author ||'zhangsan',
-              deadline: _data[i].deadline
-            });
-            $('.dropdown').dropdown();
-          };
-        })
-        .catch(function (error) {
-        console.log(error);
-        }); 
+
 
       //显示当前用户已接受的问卷
       //search已接受问卷，读取数据
-      // for(var j = 0;j <12;j++) {
-      //   this.jieshou_questions.push({
-      //     id: this.jieshou_nextQuestionId++,
-      //     title: 'jieshoureceive'+this.jieshou_nextQuestionId,
-      //     deadline: 'xxxx-xx-xx'+this.jieshou_nextQuestionId,
-      //     finish_question:'未完成'
-      //   });
-      //   $('.dropdown').dropdown();
-      // };
+      for(var j = 0;j <12;j++) {
+        this.jieshou_questions.push({
+          id: this.jieshou_nextQuestionId++,
+          title: 'jieshoureceive'+this.jieshou_nextQuestionId,
+          deadline: 'xxxx-xx-xx'+this.jieshou_nextQuestionId
+        });
+        $('.dropdown').dropdown();
+      };
       //
 
 
@@ -290,16 +215,6 @@ var que = new Vue({
     },
     delete_jieshou(){
       setTimeout(function(){ divedePage(que.jieshou_questions.length); }, 10);
-    },
-    change_state:function(index) {
-      
-      Vue.set(this.jieshou_questions[index],'finish_question','已完成');
-
-
-      //数据库修改状态为已完成
-      //算钱
-      //TODO
-      //
     }
   }
 })
@@ -365,10 +280,5 @@ function return_button(){
   $('#release-task').show();
   $('#questionnaire-list').hide();
 }
-function first_load() {
-  var button_left = document.getElementById('fabu');
-  button_left.click();
-  var button_right = document.getElementById('jieshou');
- // button_right.click();
-  button_left.click();
-}
+
+
