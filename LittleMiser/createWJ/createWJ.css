@@ -3,6 +3,16 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
 }
+.fabu {
+	margin-left: 5%;
+	margin-right: 5%;
+}
+.fabu-font {
+	font-size: 15px;
+}
+#number,#money {
+	margin-bottom: 2%;
+}
 #mypusher {
     width: 80%;
 }
