@@ -9,7 +9,7 @@
 	<script src="../js/semantic.js"></script>
 	<script src="../js/jquery.pagination.js"></script>
 </head>
-<body>
+<body onload="first_load()">
 	
 	<!-- Sidebar Menu -->
 	<div class="ui left sidebar inverted vertical visible uncover menu">
@@ -78,7 +78,9 @@
 								v-bind:title="question.title"
 								v-bind:author="question.author"
 								v-bind:deadline="question.deadline"
+							        v-bind:finish_question="question.finish_question"
 								v-on:remove="jieshou_questions.splice(index, 1),delete_jieshou()"
+							    	v-on:change_state="change_state(index)"
 							></li>
 						</ul>
 					</div>
