@@ -56,7 +56,7 @@ Vue.component('ul_item',  {
         console.log('gotoTJ:',this.id);
         localStorage.setItem("statistics", JSON.stringify(que.fabu_questions[this.id]));
         console.log(localStorage.getItem("statistics"));
-        window.location.href='../statistics/statistics.html';
+       window.location.href='../statistics/statistics.html';
     
   },
   deleteWJ: function(){

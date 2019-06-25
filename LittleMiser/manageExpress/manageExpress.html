@@ -9,8 +9,8 @@
 	<script src="../js/semantic.js"></script>
 	<script src="../js/jquery.pagination.js"></script>
 </head>
-<body>
-	
+<body onload="first_load()">
+
 	<!-- Sidebar Menu -->
 	<div class="ui left sidebar inverted vertical visible uncover menu">
 		<h1 class="ui header blue" id="menu-name">Little Mister</h1>
@@ -21,14 +21,14 @@
 	    <a class="item"  href="../personInfo/personalInfo.html"><i class="angle right icon"></i>个人信息</a>
 		<a class="item"><i class="sign out icon"></i>注销账号</a>
 	</div>
-	
+
 	<!-- pusher-->
 	<div class="pusher" id="mypusher">
 		<!-- switch button-->
 
 		<button class="ui icon button" onclick="switch_button()">
 	        <i class="align justify icon" onclick="switch_button()"></i> </button>
-		
+
 		<div id="back-image"></div>
 		<!-- main page-->
 
@@ -46,7 +46,7 @@
        	   		</div>
            	</div>
 
-           	
+
 			<div >
 					<div  id="fabu_list">
 						<ul id="ul_fabu_list" style="width: 900px; height: 350px;">
@@ -92,11 +92,11 @@
 			</div>
 
 		</div>		
-		
+
 	</div>
 
-	
+
 	<script src="manageExpress.js"></script>
 	<script src="../js/axios.min.js"></script>
 </body>
-</html>
+</html> 
