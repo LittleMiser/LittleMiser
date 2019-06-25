@@ -1,27 +1,4 @@
-// $(document).ready(function(){
-//   axios.post('/manageQuestion/search_author', {author: 'zhangsan'})
-//         .then(function (res) {
-//           _data = res.data;
-//           console.log(_data);
-//           while(que.jieshou_questions.length){
-//             que.jieshou_questions.pop();
-//           }
-//           for(var i = 0; i < _data.length; i++) {
-//             que.jieshou_questions.push({
-//               ID: _data[i]._id,
-//               id: que.jieshou_nextQuestionId++,
-//               title: _data[i].title,
-//               questionSet: _data[i].questions,
-//               author: _data[i].author ||'zhangsan',
-//               deadline: _data[i].deadline
-//             });
-//             $('.dropdown').dropdown();
-//           };
-//         })
-//         .catch(function (error) {
-//         console.log(error);
-//         }); 
-// });
+
 var app = new Vue({ 
   el: '#myheader',
   data: {
