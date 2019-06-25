@@ -50,11 +50,36 @@ Vue.component('question-item', {
       console.log(que.questions[this.id]);
       if(que.questions[this.id].remain <= 0){
         alert('问卷填写名额已满');
-      }
-      else{
-          console.log('填写问卷 id = ',this.id);
-          localStorage.setItem("paperInfo", JSON.stringify(que.questions[this.id]))
-          window.location.href='../WJinfo/WJinfo.html';
+      }else{
+        var months =  ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+          var _deadline = que.questions[this.id].deadline.split(" ");
+
+          _deadline[1] = _deadline[1].split(",")[0];
+          
+          for(var i = 0;i<months.length;i++){
+            if(months[i] == _deadline[0]){
+              _deadline[0] = String(i+1);
+              break;
+            }
+          }
+          console.log(_deadline);
+          var _dl = [_deadline[2], _deadline[0], _deadline[1]];
+
+          _dl = _dl.join('/');
+          console.log(_dl);
+          var dltime = new Date(_dl);
+          var nowtime = new Date();
+
+          console.log('dealine: ',dltime);
+          if(dltime.getTime() < nowtime.getTime()){
+            alert('问卷已过截止时间');
+          }else{
+            console.log('填写问卷 id = ',this.id);
+            localStorage.setItem("paperInfo", JSON.stringify(que.questions[this.id]))
+            window.location.href='../WJinfo/WJinfo.html';
+          }
+          
       }
 
     }
