@@ -15,15 +15,17 @@ router.get('/WJinfo.html',function(req,res){
 router.post('/fill_in', function (req, res) {
 
     console.log("问卷填写完成，更新数据库")
-    console.log(req.body);
+   // console.log(req.body);
     var id = req.body['id'];
     var data_ans = req.body['ans']
-    console.log(id);
+   // console.log(id);
     var dataFromDB = {};
     db.collection("papers").find({_id: mongodb.ObjectId(id)}).toArray(function(err, result) {
         if (err) throw err;
-        console.log('result',result);
+    //    console.log('result',result);
         dataFromDB = result;
+
+        dataFromDB[0].remain -= dataFromDB[0].every_pay;
         for(var i=0;i<data_ans.length;i++){
             if(dataFromDB[0].questions[i].qtype == 2){
                 dataFromDB[0].answer[i].ans.push(data_ans[i].ans_a)

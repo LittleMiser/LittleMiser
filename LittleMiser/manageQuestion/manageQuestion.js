@@ -33,7 +33,7 @@ Vue.component('ul_item',  {
         console.log('gotoTJ:',this.id);
         localStorage.setItem("statistics", JSON.stringify(que.fabu_questions[this.id]));
         console.log(localStorage.getItem("statistics"));
-       window.location.href='../statistics/statistics.html';
+        window.location.href='../statistics/statistics.html';
     
   },
   deleteWJ: function(){
@@ -41,11 +41,20 @@ Vue.component('ul_item',  {
     console.log('delete id = ',deid);
     axios.post('/manageQuestion/delete_wj', {id: deid})
     .then(function (res) {
-      window.location.href='../manageQuestion/manageQuestion.html';
+    //  window.location.href='../manageQuestion/manageQuestion.html';
     })
     .catch(function (error) {
     console.log(error);
     });  
+    alert('问卷删除成功，返还 '+ que.fabu_questions[this.id].remain);
+    location.reload(); 
+    
+    // todo 问卷删除：返还剩余奖金，当前账户 +　que.fabu_questions[this.id].remain
+
+
+
+
+
   }
 }
 })
@@ -142,7 +151,7 @@ var que = new Vue({
     publish:function() {
       this.isFabu = true;
       if(this.first_fabu) {
-        axios.post('/manageQuestion/search_author', {author: 'zhangsan'})
+        axios.post('/manageQuestion/search_creator', {creator: localStorage.getItem("username")})
         .then(function (res) {
           _data = res.data;
           console.log(_data);
@@ -152,11 +161,12 @@ var que = new Vue({
           for(var i = 0; i < _data.length; i++) {
             que.fabu_questions.push({
               ID: _data[i]._id,
-              id: que.fabu_nextQuestionId++,
+              id: i,
               title: _data[i].title,
               questionSet: _data[i].questions,
               answers: _data[i].answer,
-              author: _data[i].author ||'zhangsan',
+              remain: _data[i].remain,
+              creator: _data[i].creator ||'zhangsan',
               deadline: _data[i].deadline
             });
             $('.dropdown').dropdown();
@@ -182,7 +192,7 @@ var que = new Vue({
 
 
 
-      this.first_fabu = false;  
+     // this.first_fabu = false;  
       }else {
       }
       setTimeout(function(){ divedePage(que.fabu_questions.length); }, 10);
@@ -195,7 +205,7 @@ var que = new Vue({
       this.isFabu = false;
       if(this.first_jieshou){
 
-        axios.post('/manageQuestion/search_author', {author: 'zhangsan'})
+        axios.post('/manageQuestion/search_author', {creator: localStorage.getItem("username")})
         .then(function (res) {
           _data = res.data;
           console.log(_data);
@@ -208,7 +218,7 @@ var que = new Vue({
               id: que.jieshou_nextQuestionId++,
               title: _data[i].title,
               questionSet: _data[i].questions,
-              author: _data[i].author ||'zhangsan',
+              creator: _data[i].creator ||'zhangsan',
               deadline: _data[i].deadline
             });
             $('.dropdown').dropdown();

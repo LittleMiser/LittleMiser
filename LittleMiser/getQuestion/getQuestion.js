@@ -12,8 +12,10 @@ $(document).ready(function(){
         ID: _data[i]._id,
         id: que.nextQuestionId++,
         title: _data[i].title,
+        author: _data[i].creator ||'zhangsan',
         questionSet: _data[i].questions,
-        author: _data[i].author ||'zhangsan',
+        remain: _data[i].remain,
+        every_pay : _data[i].every_pay,
         deadline: _data[i].deadline
       });
     };
@@ -45,13 +47,16 @@ Vue.component('question-item', {
   props: ['id', 'title', 'author', 'deadline'],
   methods: {
     gotoWJ: function() {
-      for(var i = 0; i < que.questions.length; i++) {
-        if (this.id == que.questions[i].id) {
-          console.log(this.id);
-          localStorage.setItem("paper", JSON.stringify(que.questions[i]))
-          window.location.href='../WJinfo/WJinfo.html';
-        }
+      console.log(que.questions[this.id]);
+      if(que.questions[this.id].remain <= 0){
+        alert('问卷填写名额已满');
       }
+      else{
+          console.log('填写问卷 id = ',this.id);
+          localStorage.setItem("paperInfo", JSON.stringify(que.questions[this.id]))
+          window.location.href='../WJinfo/WJinfo.html';
+      }
+
     }
   }
 })
@@ -61,7 +66,7 @@ var que = new Vue({
   data: {
     newQuestionText: '',
     questions: [],
-    nextQuestionId: 1
+    nextQuestionId: 0
   },
   methods: {
     
@@ -77,10 +82,12 @@ var que = new Vue({
         for(var i = 0; i < _data.length; i++) {
           que.questions.push({
             ID: _data[i]._id,
-            id: que.nextQuestionId++,
+            id: i,
             title: _data[i].title,
-            author: _data[i].author ||'zhangsan',
+            author: _data[i].creator ||'zhangsan',
             questionSet: _data[i].questions,
+            remain: _data[i].remain,
+            every_pay : _data[i].every_pay,
             deadline: _data[i].deadline
           });
         }
@@ -93,25 +100,6 @@ var que = new Vue({
     }
   }
 })
-// function search() {
-//   console.log('this.newQuestionText',que.newQuestionText);
-//   axios.post('/getQuestion/search_title', {data:que.newQuestionText})
-//   .then(function (res) {
-//     _data = res.data;
-//     console.log(_data);
-//     for(var i = 0; i < _data.length; i++) {
-//       que.questions.push({
-//         id: que.nextQuestionId++,
-//         title: _data[i].title,
-//         author: _data[i].author ||'zhangsan',
-//         deadline: _data[i].deadline
-//       });
-//     };
-//   })
-//   .catch(function (error) {
-//   console.log(error);
-//   });
-// }
 
 var app = new Vue({ 
   el: '#myheader',

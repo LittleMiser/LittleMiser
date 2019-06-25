@@ -23,7 +23,7 @@ var vm = new Vue(
     }
 })
 
-vm.wjtitle = $('#wjtitle').val();
+//vm.wjtitle = $('#wjtitle').val();
 console.log(vm.wjtitle);
 function switch_button() {
 
@@ -55,10 +55,13 @@ $('#mycalender').calendar({type: 'date'});
 function fabu() {
 
 	var _data = { 
-		//creator: 'zhangsan',
+		creator: localStorage.getItem("username"),
 		title: $('#wjtitle').val(), 
 		questions: vm.questionMix,
 		answer: vm.answerMix,
+		total_bonus:parseFloat($('#money').val()),
+		every_pay : parseFloat($('#money').val())/parseFloat($('#number').val()),
+		remain : parseFloat($('#money').val()), 
 		deadline: $('#timeInput').val()
 	  };
 	  console.log(_data);
@@ -69,6 +72,14 @@ function fabu() {
 	  .catch(function (error) {
 		console.log(error);
 	  });
+	  alert("创建问卷成功");
+
+	  // todo 当前用户账户 - '$('#money').val()'
+	  // 判断余额
+
+
+
+
 	window.location.href='../page_1/page_1.html'
 }
 function save() {

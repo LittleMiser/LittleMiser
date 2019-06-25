@@ -1,9 +1,11 @@
 $(document).ready(function(){
-  var data_ = JSON.parse(localStorage.getItem("paper"));
+  var data_ = JSON.parse(localStorage.getItem("paperInfo"));
   console.log(data_);
   
   vm.id = data_.ID;
   vm.wjtitle = data_.title;
+  vm.every_pay = data_.every_pay;
+
   for(var i=0;i<data_.questionSet.length;i++){
     vm.title_list.push(data_.questionSet[i].title);
     vm.questiontype.push(data_.questionSet[i].qtype);
@@ -92,6 +94,7 @@ vm = new Vue(
         id: 0,
         wjtitle:'',
         title_list:[],
+        every_pay: 0,
         questiontype:[],
         a_list:[],
         b_list:[],
@@ -162,7 +165,15 @@ function finish(){
 	  })
 	  .catch(function (error) {
 		console.log(error);
-	  });
+    });
+    alert('问卷填写完成，获得报酬 '+vm.every_pay);
+
+    
+    // todo 填写问卷， 当前账户 + vm.every_pay
+
+
+
+
   //跳转到第一页
-  window.location.href='../page_1/page_1.html'
+  window.location.href='../getQuestion/getQuestion.html'
 }

@@ -9,7 +9,7 @@
 	<script src="../js/semantic.js"></script>
 	<script src="../js/jquery.pagination.js"></script>
 </head>
-<body>
+<body onload="first_load()">
 	
 	<!-- Sidebar Menu -->
 	<div class="ui left sidebar inverted vertical visible uncover menu">
@@ -61,7 +61,7 @@
 							<li
 								is="ul_item"
 								v-for="(question, index) in fabu_questions"
-								v-bind:key="question.id"
+								v-bind:id="question.id"
 								v-bind:title="question.title"
 								v-bind:author="question.author"
 								v-bind:deadline="question.deadline"
@@ -74,7 +74,7 @@
 							<li
 								is="jieshou_item"
 								v-for="(question, index) in jieshou_questions"
-								v-bind:key="question.id"
+								v-bind:="question.id"
 								v-bind:title="question.title"
 								v-bind:author="question.author"
 								v-bind:deadline="question.deadline"
@@ -86,13 +86,13 @@
 					<div id="pages" style="width: 550px;">
 						<div id="pagination" class="ui borderless menu"   align="left"></div>
 					</div>
-					<!-- <div id="double_btn">
+					<div id="double_btn">
            				<div class="ui buttons" align="right">
     	               		<button v-bind:class="{'ui':isA, 'positive':isB, 'button':isC}" v-on:click="has_published()" id="fabu">已发布</button>
-	    	               	<div class="or"></div>
-		               		<button v-bind:class="{'ui':isA, 'positive':isD, 'button':isC}" v-on:click="has_received()" id="jieshou">已接受</button>
+	    	               	<!-- <div class="or"></div>
+		               		<button v-bind:class="{'ui':isA, 'positive':isD, 'button':isC}" v-on:click="has_received()" id="jieshou">已接受</button> -->
 		           		</div>  
-    		     	</div> -->
+    		     	</div>
 			</div>
 
 		</div>		
