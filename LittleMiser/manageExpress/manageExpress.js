@@ -249,3 +249,11 @@ function switch_button() {
         }
     }).sidebar('toggle');
 }
+
+function first_load() {
+  var button_left = document.getElementById('fabu');
+  button_left.click();
+  var button_right = document.getElementById('jieshou');
+  button_right.click();
+  button_left.click();
+}
