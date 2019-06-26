@@ -181,3 +181,61 @@ ViewModel
 每一个界面中，按钮等控件也被作为一个对象，在html绑定js的点击事件
 ![](pictures/8.PNG)  
 ![](pictures/7.PNG)  
+
+
+## 后端
+### 1.技术选型及理由
+项目后端采用的技术栈为 **nodejs+Express+MongoDB**
+- **nodejs+express**
+  - Express 作为一个简洁而灵活的 node.js Web应用框架, 提供了一系列强大特性和丰富的 HTTP 工具来帮助创建各种 Web 应用。
+  - Express 框架核心特性：
+    - 可以设置中间件来响应 HTTP 请求。
+    - 定义了路由表用于执行不同的 HTTP 请求动作。
+    - 可以通过向模板传递参数来动态渲染 HTML 页面。
+  - 简单易实现
+- **MongoDB**
+  - MongoDB 是一种文档导向数据库管理系统，为 WEB 应用提供了可扩展的高性能数据存储解决方案。
+  - MongoDB 功能丰富，可以使用 update() 命令实现替换完成的文档（数据）或者一些指定的数据字段 。
+  - 结合 nodejs 操作起来比较简单和容易。
+  - 网上可供参考资源文档较多。
+
+### 4. 所用的软件设计技术
+- **面向对象编程**  
+  项目使用了面向对象编程的封装思想，按照业务逻辑将代码的数据表模块和API模块分别进行了封装。  
+  ```
+  └──Backend：服务端开发的源码
+      ├─models
+      |    ├─db.js
+      │    ├─express.js
+      │    ├─paper.js
+      |    ├─user.js
+      ├─routers
+      |    ├─createPaper.js
+      │    ├─expr.js
+      │    ├─fillPaper.js
+      |    ├─getPaperInfo.js
+      |    ├─managePaper.js
+      │    ├─user.js
+  ```
+  以快递数据表为例：
+  ```
+  var mongoose = require('./db'),
+    Schema = mongoose.Schema;
+
+  var ExpressSchema = new Schema({
+      user: String,
+      contact : String,
+      phone : String,
+      payment : Number,
+      due_date : Date,
+      location : String,
+      pickup_address : String,
+      delivery_address : String,
+      description : String,
+      isRecepted: Boolean,
+      isFinished: Boolean,
+      recept_user: String
+  })
+
+  module.exports = mongoose.model('Express', ExpressSchema);  
+  ```
