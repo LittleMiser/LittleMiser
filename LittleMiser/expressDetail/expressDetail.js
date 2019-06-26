@@ -42,14 +42,22 @@ var detail = new Vue ({
           user: username
         };
         if (document.getElementById('changeInfoBtn').innerText == "领取") {
-          axios.post('/expressDetail/takeExpress', data_)
-          .then(resp => {
-            console.log(data_);
-          }).catch(err => {
-            console.log('请求失败：'+err.status+','+err.statusText);
-          });
-            alert("发布成功！");
-            $(".error").hide();
+          var nowtime = new Date();
+          var deadtime = new Date(this.deadline);
+          if(deadtime.getTime() >= nowtime.getTime()){
+            //alert('问卷已过截止时间');
+            axios.post('/expressDetail/takeExpress', data_)
+            .then(resp => {
+              console.log(data_);
+            }).catch(err => {
+              console.log('请求失败：'+err.status+','+err.statusText);
+            });
+              alert("发布成功！");
+              $(".error").hide();
+          }
+          else{
+            alert('问卷已过截止时间');
+          }
         }
         else {
           // Transaction

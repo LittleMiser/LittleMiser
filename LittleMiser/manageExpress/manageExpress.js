@@ -186,11 +186,12 @@ var que = new Vue({
               if (data[i].isFinished) {
                 str = '已完成';
               }
+              tmp_date = data[i].due_date.slice(0,10);
               this.fabu_expresses.push({
                 id: data[i]._id,
                 address: data[i].delivery_address,
                 author: data[i].contact,
-                deadline: data[i].due_date,
+                deadline: tmp_date,
                 money: data[i].payment,
                 phone: data[i].phone,
                 getAddress: data[i].pickup_address,
@@ -201,6 +202,7 @@ var que = new Vue({
                 recept_user: data[i].recept_user,
                 finish_express: str
               });
+              //console.log(typeof(data[i].due_date));
             }
             $('.dropdown').dropdown(); //不可改
           };
@@ -235,11 +237,12 @@ var que = new Vue({
               if (data[i].isFinished) {
                 str = '已完成';
               }
+              tmp_date = data[i].due_date.slice(0,10);
               this.jieshou_expresses.push({
                 id: data[i]._id,
                 address: data[i].delivery_address,
                 author: data[i].contact,
-                deadline: data[i].due_date,
+                deadline: tmp_date,
                 money: data[i].payment,
                 phone: data[i].phone,
                 getAddress: data[i].pickup_address,
