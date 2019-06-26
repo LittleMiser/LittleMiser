@@ -50,7 +50,7 @@
 
 - 点击问卷任务，可以选择查看统计，删除任务。查看统计页面如下
 
-  ![tongji]images/tongji.png)
+  ![tongji](images/tongji.png)
 
 - 在侧边栏进入个人信息页面，可以修改个人信息和密码
 
