@@ -119,7 +119,7 @@ var _publish = new Vue ({
           });
             alert("发布成功！");
             $(".error").hide();
-            //window.location.href='../index/index.html';
+            window.location.href='/page_1/page_1.html';
       }else{
           this.errorMsg = "请补充正确完整的信息";
           $(".error").show();

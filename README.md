@@ -15,3 +15,4 @@
     * 4.6 [Supplementary Requirements（补充需求）](Documents/4-6-Supplementary-Requirements)
 5. [《软件设计文档》 （SDS）](Documents/5-SoftwareDesign.md)
 6. [《小组分工与贡献率说明》](Documents/6-Division.md)
+7. [演示视频](Documents/演示视频.mp4)

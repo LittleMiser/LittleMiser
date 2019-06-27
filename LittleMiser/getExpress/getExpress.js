@@ -5,11 +5,12 @@ $(document).ready(function(){
     data = res.data;
     for(var i = 0; i < data.length; i++) {
       if (!data[i].isRecepted) {
+        tmp_date = data[i].due_date.slice(0,10);
         exp.expresses.push({
           id: data[i]._id,
           address: data[i].delivery_address,
           author: data[i].contact,
-          deadline: data[i].due_date,
+          deadline: tmp_date,
           money: data[i].payment,
           phone: data[i].phone,
           getAddress: data[i].pickup_address,
