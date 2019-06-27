@@ -217,7 +217,7 @@ ViewModel
   - 结合 nodejs 操作起来比较简单和容易。
   - 网上可供参考资源文档较多。
 ### 2.架构设计
-![架构1](/Users/miss_jian/homework/大三下/系统分析与设计/doc/架构1.png)
+![架构1](/pictures/架构1.png)
 
 本应用采用三层架构：
 
