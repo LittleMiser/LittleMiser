@@ -170,7 +170,13 @@ function finish(){
 
     
     // todo 填写问卷， 当前账户 + vm.every_pay
-
+    var __data = {
+      creator: localStorage.getItem("username").split("\"")[1],
+      pay: vm.every_pay
+    };
+    axios.post('/User/createWJ/post_payEvery', __data)
+    .then(function (response) {
+    })
 
 
 

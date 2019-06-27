@@ -1,17 +1,31 @@
  $(document).ready(function(){
   var data = {};
   // 读取JSON数据，存入expresses数组中
-  per.personalInfo();
-  per.user_name= per.new_name ='d';
-  per.money='100';
-  per.real_name='张三';
-  per.number='16340000';
-  per.age=per.new_age='20';
-  per.gender='女';
-  per.grade=per.new_grade='2016级';
-  per.major=per.new_major='软件工程';
-  per.intro=per.new_intro='abcdefg,hijklmn,opq,rs,uvwxyz!!!abcdefg,hijklmn,opq,rs,uvwxyz!!!';
-  per.correctPasswd='123456';
+
+
+    var data_ = { 
+      myContact: localStorage.getItem("username").split("\"")[1]
+    };
+
+    axios.post('/User/personalInfo/personalInfo.html', data_)
+      .then(res => {
+        data = res.data;
+        per.user_name= data[0].NickName;
+        per.money = data[0].Money;
+        per.real_name = data[0].Name;
+        per.number= data[0].StudentNum;
+        per.age= data[0].old;
+        per.gender= data[0].Sex;
+        per.grade= data[0].Grade;
+        per.major= data[0].Major;
+        per.intro= data[0].Contact;
+        per.correctPasswd= data[0].Code;
+
+        per.personalInfo();
+        console.log(data_);
+        }).catch(err => {
+            console.log('请求失败：'+err.status+','+err.statusText);
+          });
 
 });
 
@@ -101,7 +115,14 @@ var per = new Vue({
                         //数据库修改密码
                         //TODO
                         //
-
+                        var __data = {
+                          creator: localStorage.getItem("username").split("\"")[1],
+                          type: "Code", 
+                          content: this.newPasswd
+                        };
+                        axios.post('/User/personalInfo/updateCode', __data)
+                        .then(function (response) {
+                        })
 
                         alert("修改密码成功");
                         this.personalInfo();
@@ -113,7 +134,7 @@ var per = new Vue({
                         this.confirmPasswd = '';
                     }
                 }
-                else {
+                else {index
                     alert("密码格式不符，请重新输入！");
                     this.oldPasswd = '';
                     this.newPasswd = '';
@@ -138,10 +159,20 @@ var per = new Vue({
             //数据库修改信息
             //TODO
             //
+            var __data = {
+              creator: localStorage.getItem("username").split("\"")[1],
+              Nickname: this.new_name,
+              Old: this.new_age,
+              Grade : this.new_grade,
+              Major : this.new_major
+            };
+            axios.post('/User/personalInfo/updatePersonal', __data)
+            .then(function (response) {
+            }).catch(err => {
+            console.log('请求失败：'+err.status+','+err.statusText);
+          });
 
 
-            alert("修改个人信息成功");
-            this.personalInfo();
         },
         checkPassword:function(){
             if(!/^(\w){6,20}$/.test(this.newPasswd)){

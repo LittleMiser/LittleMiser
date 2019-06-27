@@ -22,7 +22,8 @@ app.use('/getQuestion', getPaperInfo);
 app.use('/WJinfo', fillPaper);
 app.use('/manageQuestion', managePaper);
 app.use('/', expr);
-app.use('/', createUser);
+app.use('/User', createUser);
+
 app.use(express.static(__dirname + '/LittleMiser'));
 
 app.get('/index/', function(req,res){

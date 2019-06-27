@@ -35,28 +35,38 @@ Vue.component('ul_item',  {
         console.log(localStorage.getItem("statistics"));
         window.location.href='../statistics/statistics.html';
     
-  },
-  deleteWJ: function(){
-    var deid = que.fabu_questions[this.id].ID;
-    console.log('delete id = ',deid);
-    axios.post('/manageQuestion/delete_wj', {id: deid})
-    .then(function (res) {
-    //  window.location.href='../manageQuestion/manageQuestion.html';
-    })
-    .catch(function (error) {
-    console.log(error);
-    });  
-    alert('问卷删除成功，返还 '+ que.fabu_questions[this.id].remain);
-    location.reload(); 
-    
-    // todo 问卷删除：返还剩余奖金，当前账户 +　que.fabu_questions[this.id].remain
+    },
+    deleteWJ: function(){
+      var deid = que.fabu_questions[this.id].ID;
+      console.log('delete id = ',deid);
+      axios.post('/manageQuestion/delete_wj', {id: deid})
+      .then(function (res) {
+      //  window.location.href='../manageQuestion/manageQuestion.html';
+      })
+      .catch(function (error) {
+      console.log(error);
+      });  
+      alert('问卷删除成功，返还 '+ que.fabu_questions[this.id].remain);
+      
+      // todo 问卷删除：返还剩余奖金，当前账户 +　que.fabu_questions[this.id].remain
+      var __data = {
+        creator: localStorage.getItem("username").split("\"")[1],
+        remain: que.fabu_questions[this.id].remain
+      };
+
+      axios.post('/User/createWJ/post_returnWJ', __data)
+      .then(function (response) {
+      })
+      .catch(function (error) {
+      console.log(error);
+      });  
+
+      location.reload(); 
 
 
 
-
-
+    }
   }
-}
 })
 //不可删，只用一个component显示会冲突
 Vue.component('jieshou_item',  {
@@ -81,10 +91,7 @@ Vue.component('jieshou_item',  {
     </div>\
   ',
   props: ['title','deadline','finish_question']
-
 })
-
-
 
 var que = new Vue({
   el: '#mypusher',
@@ -189,9 +196,6 @@ var que = new Vue({
       //   $('.dropdown').dropdown(); //不可改
       // };
       //
-
-
-
      // this.first_fabu = false;  
       }else {
       }

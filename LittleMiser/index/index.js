@@ -31,7 +31,7 @@ var _login = new Vue ({
         };
         var jum = false;
         // 通过axios获取数据
-        axios.post('/index/index.html', data_)
+        axios.post('/User/index/index.html', data_)
           .then(resp => {
             console.log(data_);
             jum = resp.data.message;

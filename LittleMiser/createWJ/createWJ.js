@@ -76,9 +76,16 @@ function fabu() {
 
 	  // todo 当前用户账户 - '$('#money').val()'
 	  // 判断余额
-
-
-
+	  var __data = {
+	  	creator: localStorage.getItem("username").split("\"")[1],
+	  	total_bonus: parseFloat($('#money').val())
+	  };
+	  axios.post('/User/createWJ/post_payWJ', __data)
+	  .then(function (response) {
+	  	
+	  }).catch(function (error) {
+		console.log("error");
+	  });
 
 	window.location.href='../page_1/page_1.html'
 }

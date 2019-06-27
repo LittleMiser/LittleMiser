@@ -74,7 +74,7 @@ var _register = new Vue ({
       }
       else{
         this.ageMsg = "";
-         if(this.selected = ""){
+         if(this.selected == ""){
           this.sexMsg = "请选择性别";
           return false;
         }
@@ -105,7 +105,7 @@ var _register = new Vue ({
             mymajor: this.major
           };
           // 通过axios获取数据
-          axios.post('/register/register.html', data_)
+          axios.post('/User/register/register.html', data_)
             .then(resp => {
               console.log(data_);
             }).catch(err => {
