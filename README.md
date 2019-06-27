@@ -12,7 +12,7 @@
     * 4.3 [Domian Models（领域模型）](Documents/4-3-Domain.md)
     * 4.4 [State Models（状态模型）](Documents/4-4-StateModels.md)
     * 4.5 [System Sequence Diagrams（功能模型）](Documents/4-5-System-Sequence-Diagrams.md)
-    * 4.6 [Supplementary Requirements（补充需求）](Documents/4-6-Supplementary-Requirements)
+    * 4.6 [Supplementary Requirements（补充需求）](Documents/4-6-Supplementary-Requirements.md)
 5. [《软件设计文档》 （SDS）](Documents/5-SoftwareDesign.md)
 6. [《小组分工与贡献率说明》](Documents/6-Division.md)
 7. [演示视频](Documents/演示视频.mp4)
